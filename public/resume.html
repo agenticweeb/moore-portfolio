@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jeffrey A. Moore, MSN, RN, CCRN - Professional Clinical CV</title>
+  <style>
+    @page {
+      size: letter;
+      margin: 0.55in 0.65in 0.55in 0.65in;
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
+      color: #1a202c;
+      background-color: #f7fafc;
+      line-height: 1.35;
+      font-size: 10.5pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .cv-container {
+      max-width: 8.5in;
+      margin: 20px auto;
+      background: #ffffff;
+      padding: 0.55in 0.65in;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 4px;
+    }
+
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .cv-container {
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        max-width: 100%;
+        border-radius: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Print Controls Bar */
+    .action-bar {
+      max-width: 8.5in;
+      margin: 15px auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 13px;
+    }
+    .action-bar button {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+    }
+    .action-bar button:hover {
+      background: #0369a1;
+    }
+    .action-bar a {
+      color: #7dd3fc;
+      text-decoration: none;
+    }
+
+    /* Header */
+    .header-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 14px;
+      border-bottom: 2px solid #0369a1;
+      padding-bottom: 12px;
+    }
+    .header-info {
+      vertical-align: top;
+      text-align: left;
+    }
+    .candidate-name {
+      font-size: 22pt;
+      font-weight: 700;
+      color: #0c4a6e;
+      letter-spacing: -0.3px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+    .candidate-credentials {
+      font-size: 13pt;
+      font-weight: 600;
+      color: #0284c7;
+      margin-top: 2px;
+    }
+    .target-role {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+    .contact-row {
+      margin-top: 6px;
+      font-size: 9.5pt;
+      color: #334155;
+      line-height: 1.4;
+    }
+    .contact-row a {
+      color: #0369a1;
+      text-decoration: none;
+    }
+    .header-photo {
+      width: 105px;
+      vertical-align: top;
+      text-align: right;
+    }
+    .headshot-img {
+      width: 96px;
+      height: 110px;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 6px;
+      border: 2px solid #0284c7;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+
+    /* Section Styling */
+    .section-title {
+      font-size: 11.5pt;
+      font-weight: 700;
+      color: #0c4a6e;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      border-bottom: 1.5px solid #cbd5e1;
+      padding-bottom: 2px;
+      margin-top: 12px;
+      margin-bottom: 6px;
+    }
+
+    .summary-text {
+      text-align: justify;
+      color: #1e293b;
+      font-size: 10pt;
+      line-height: 1.38;
+      margin-bottom: 8px;
+    }
+
+    /* Experience */
+    .job-entry {
+      margin-bottom: 9px;
+    }
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-weight: 700;
+      font-size: 10.5pt;
+      color: #0f172a;
+    }
+    .job-role {
+      color: #0369a1;
+    }
+    .job-dates {
+      font-size: 9.5pt;
+      font-weight: 600;
+      color: #475569;
+      text-align: right;
+    }
+    .job-subhead {
+      font-size: 9.5pt;
+      font-weight: 600;
+      color: #475569;
+      font-style: italic;
+      margin-bottom: 3px;
+    }
+    .bullet-list {
+      list-style-type: disc;
+      padding-left: 17px;
+      font-size: 9.5pt;
+      color: #1e293b;
+      line-height: 1.34;
+    }
+    .bullet-list li {
+      margin-bottom: 2.5px;
+      text-align: justify;
+    }
+
+    /* Skills Grid */
+    .skills-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 9.5pt;
+      margin-top: 4px;
+    }
+    .skills-table td {
+      vertical-align: top;
+      padding: 2px 4px 2px 0;
+      width: 50%;
+    }
+    .skill-bullet {
+      color: #0284c7;
+      font-weight: bold;
+      margin-right: 4px;
+    }
+
+    /* Education & Certs */
+    .edu-entry, .cert-entry {
+      margin-bottom: 4px;
+      font-size: 9.5pt;
+    }
+    .edu-degree {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .edu-school {
+      color: #334155;
+    }
+    .edu-dates {
+      float: right;
+      color: #475569;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Screen Top Bar with Print Button -->
+  <div class="action-bar no-print">
+    <div>
+      <strong>Jeffrey Alan Moore, MSN, RN, CCRN</strong> — Professional Medical CV
+      <span style="opacity: 0.6; margin-left: 8px;">(Optimized for Print / Save to PDF)</span>
+    </div>
+    <div style="display: flex; gap: 10px; align-items: center;">
+      <a href="/" style="font-size: 12px; margin-right: 8px;">← Back to Interactive Portfolio</a>
+      <button onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        Print / Save as PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="cv-container">
+    <!-- Header with Photo -->
+    <table class="header-table">
+      <tr>
+        <td class="header-info">
+          <div class="candidate-name">Jeffrey Alan Moore</div>
+          <div class="candidate-credentials">MSN, RN, CCRN</div>
+          <div class="target-role">Critical Care & Cardiology Nurse | Clinical AI Expert Reviewer</div>
+          <div class="contact-row">
+            Evansville, Indiana, USA &nbsp;|&nbsp; 
+            <strong>Phone:</strong> (812) 555-0198 &nbsp;|&nbsp; 
+            <strong>Email:</strong> <a href="mailto:jeff.moore.clinical@email.com">jeff.moore.clinical@email.com</a><br>
+            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jeff-moore-334420447">linkedin.com/in/jeff-moore-334420447</a> &nbsp;|&nbsp; 
+            <strong>Portfolio:</strong> <a href="https://moore-portfolio.vercel.app">jeffmooreclinical.com</a>
+          </div>
+        </td>
+        <td class="header-photo">
+          <img src="/nurse.jpg" alt="Jeffrey Alan Moore, MSN, RN, CCRN" class="headshot-img" onerror="this.outerHTML='<div style=\'width:96px;height:110px;border:2px dashed #0284c7;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8pt;text-align:center;color:#0284c7;padding:4px;\'>[Photo: nurse.jpg]</div>'">
+        </td>
+      </tr>
+    </table>
+
+    <!-- Professional Summary -->
+    <div class="section-title">Professional Summary</div>
+    <p class="summary-text">
+      Experienced critical care and cardiology-focused nurse with 18+ years of direct patient care, 12-lead ECG interpretation, clinical decision support, and medical documentation review. Proven expertise in auditing complex clinical scenarios, identifying subtle diagnostic reasoning gaps, and synthesizing structured, rubric-driven assessments for high-stakes medical evaluation. Extensive background developing case-based medical education, patient triage rubrics, and quality-improvement protocols. Well-versed in translating complex cardiovascular pathophysiology into clear, objective evaluation criteria. Seeking remote expert contributor and AI evaluation roles (e.g., Outlier/Valkyrie-style medical queues) requiring rigorous clinical judgment, safety stratification, and authoritative model output verification.
+    </p>
+
+    <!-- Core Competencies -->
+    <div class="section-title">Core Competencies & AI Evaluation Expertise</div>
+    <table class="skills-table">
+      <tr>
+        <td><span class="skill-bullet">▪</span> <strong>Advanced ECG & Rhythm Interpretation:</strong> 12-lead analysis, NSTE-ACS, subtle ischemia, STEMI mimics.</td>
+        <td><span class="skill-bullet">▪</span> <strong>Structured AI Evaluation & Rubrics:</strong> Model auditing, safety stratification, rubric benchmarking.</td>
+      </tr>
+      <tr>
+        <td><span class="skill-bullet">▪</span> <strong>Clinical Reasoning & Differential Diagnosis:</strong> Cardiology, hemodynamics, progressive/critical care.</td>
+        <td><span class="skill-bullet">▪</span> <strong>Clinical Prompting & Scenario Generation:</strong> High-fidelity vignettes, edge cases, multi-turn clinical logic.</td>
+      </tr>
+      <tr>
+        <td><span class="skill-bullet">▪</span> <strong>Medical Content Review & Verification:</strong> Guideline adherence (ACC/AHA), factual accuracy, omission audits.</td>
+        <td><span class="skill-bullet">▪</span> <strong>Clear Written Feedback:</strong> Authoritative justifications, corrective rewrite calibration, defect taxonomy.</td>
+      </tr>
+    </table>
+
+    <!-- Professional Experience -->
+    <div class="section-title">Professional Experience</div>
+
+    <div class="job-entry">
+      <div class="job-header">
+        <span class="job-role">Independent Clinical Consultant & Medical Content Reviewer</span>
+        <span class="job-dates">June 2022 – Present</span>
+      </div>
+      <div class="job-subhead">Remote / Evansville, IN</div>
+      <ul class="bullet-list">
+        <li>Audit and evaluate clinical documentation, case summaries, and diagnostic reasoning for absolute factual accuracy, completeness, and patient safety across acute cardiology and critical care domains.</li>
+        <li>Develop rigorous scoring criteria and multidimensional evaluation rubrics for clinical scenarios encompassing complex 12-lead ECG interpretations, acute coronary syndromes (ACS), acute decompensated heart failure, and shock states.</li>
+        <li>Engineer realistic, high-fidelity clinical prompts, diagnostic dilemmas, and evaluation frameworks designed to test expert-level medical reasoning and benchmark automated clinical decision models.</li>
+        <li>Synthesize detailed corrective feedback and authoritative gold-standard responses according to current clinical guidelines (ACC/AHA, ESC, Surviving Sepsis Campaign).</li>
+        <li>Author and review remote medical education modules, case vignettes, and clinician assessment tools with emphasis on early recognition of cardiovascular decompensation.</li>
+      </ul>
+    </div>
+
+    <div class="job-entry">
+      <div class="job-header">
+        <span class="job-role">Staff Nurse / Charge Nurse – Cardiology & Progressive Care</span>
+        <span class="job-dates">March 2012 – May 2022</span>
+      </div>
+      <div class="job-subhead">Deaconess Hospital / Ascension St. Vincent Facilities | Evansville, IN Area</div>
+      <ul class="bullet-list">
+        <li>Delivered comprehensive critical and progressive care for high-acuity cardiovascular patients recovering from acute myocardial infarction, coronary interventions, complex arrhythmias, and heart failure.</li>
+        <li>Interpreted continuous cardiac telemetry and diagnostic 12-lead ECGs; rapidly identified malignant dysrhythmias, axis deviations, and ischemic evolution, executing immediate protocol escalations.</li>
+        <li>Assumed Charge Nurse responsibilities (2016–2022), overseeing unit clinical operations, bed triage, rapid response dispatch, and interdisciplinary emergency escalations.</li>
+        <li>Chaired and participated in interdisciplinary case review committees and clinical quality improvement (QI) initiatives focused on diagnostic documentation precision and medication reconciliation.</li>
+        <li>Served as lead clinical preceptor and educator, mentoring over 35 nursing staff members on 12-lead ECG recognition, acute cardiac protocols, and evidence-based clinical reasoning standards.</li>
+      </ul>
+    </div>
+
+    <div class="job-entry">
+      <div class="job-header">
+        <span class="job-role">Critical Care / Progressive Care Staff Nurse</span>
+        <span class="job-dates">July 2007 – February 2012</span>
+      </div>
+      <div class="job-subhead">Tri-State Area Hospitals | Evansville, IN Region</div>
+      <ul class="bullet-list">
+        <li>Managed complex, multi-system high-acuity patients requiring invasive hemodynamic monitoring, mechanical ventilation support, and titrated vasoactive infusions.</li>
+        <li>Progressed rapidly from new-graduate telemetry RN into intensive care unit (ICU) and rapid response resuscitation roles, demonstrating sharp physiological intuition and clinical composure.</li>
+        <li>Collaborated directly with attending cardiologists, intensivists, and emergency physicians to optimize diagnostic workups and acute resuscitation algorithms.</li>
+      </ul>
+    </div>
+
+    <!-- Education -->
+    <div class="section-title">Education</div>
+    <div class="edu-entry">
+      <span class="edu-dates">August 2011 – May 2014</span>
+      <span class="edu-degree">Master of Science in Nursing (MSN) – Adult-Gerontology Clinical Focus</span><br>
+      <span class="edu-school">University of Southern Indiana | Evansville, IN (Completed while working full-time)</span>
+    </div>
+    <div class="edu-entry" style="margin-top: 4px;">
+      <span class="edu-dates">August 2003 – May 2007</span>
+      <span class="edu-degree">Bachelor of Science in Nursing (BSN)</span><br>
+      <span class="edu-school">University of Southern Indiana | Evansville, IN</span>
+    </div>
+    <div class="edu-entry" style="margin-top: 4px;">
+      <span class="edu-dates">Graduated June 1999</span>
+      <span class="edu-degree">High School Diploma</span><br>
+      <span class="edu-school">Evansville Public Schools | Evansville, IN</span>
+    </div>
+
+    <!-- Licenses & Board Certifications -->
+    <div class="section-title">Licenses & Board Certifications</div>
+    <div class="cert-entry">
+      <strong>Registered Nurse (RN), Indiana:</strong> License initially issued July 2007 | Active, Multi-State Compact Eligible
+    </div>
+    <div class="cert-entry">
+      <strong>CCRN (Critical Care Registered Nurse):</strong> American Association of Critical-Care Nurses (AACN) | Initially earned September 2011; continuously maintained through 2026 via clinical practice & cardiovascular CE
+    </div>
+    <div class="cert-entry">
+      <strong>Advanced Cardiovascular Life Support (ACLS) & BLS:</strong> American Heart Association | Continuously maintained 2007–2026
+    </div>
+
+    <!-- Additional Domain Knowledge -->
+    <div class="section-title">Additional Domain Knowledge & Attributes</div>
+    <div style="font-size: 9.5pt; color: #1e293b; line-height: 1.35;">
+      Extensive patient advocacy experience translating complex cardiovascular care, prescription coverage, and healthcare cost navigation into accessible communication. Highly disciplined in asynchronous, detail-intensive remote work with strict adherence to evidence-based rubrics, medical privacy standards (HIPAA), and quality benchmarks.
+    </div>
+  </div>
+
+</body>
+</html>

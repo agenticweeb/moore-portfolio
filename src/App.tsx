@@ -1236,12 +1236,22 @@ LICENSES & CERTIFICATIONS
                 <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono">Screening Ready</span>
               </div>
               <div className="flex items-center gap-2">
+                <a
+                  href="/resume.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-colors shadow-sm"
+                  title="Open clean printable CV for PDF export"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Print / Save PDF</span>
+                </a>
                 <button
                   onClick={handleCopyResumeText}
                   className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
                 >
                   {copiedResume ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
-                  <span>{copiedResume ? 'Copied Text' : 'Copy Plaintext'}</span>
+                  <span>{copiedResume ? 'Copied' : 'Copy Text'}</span>
                 </button>
                 <button
                   onClick={() => setShowResumeModal(false)}
@@ -1353,10 +1363,19 @@ LICENSES & CERTIFICATIONS
               </div>
             </div>
 
-            <div className="p-4 border-t border-slate-800 bg-slate-950 flex justify-end">
+            <div className="p-4 border-t border-slate-800 bg-slate-950 flex justify-between items-center">
+              <a
+                href="/resume.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm"
+              >
+                <Download className="w-3.5 h-3.5" />
+                <span>Open Printable PDF Document</span>
+              </a>
               <button
                 onClick={() => setShowResumeModal(false)}
-                className="px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white font-semibold text-xs transition-colors"
+                className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors"
               >
                 Close
               </button>
