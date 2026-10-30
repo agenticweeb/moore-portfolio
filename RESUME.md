@@ -1,75 +1,67 @@
-# Jeffrey Alan Moore, MSN, RN, CCRN
-**Critical Care & Cardiology Nurse | Clinical AI Expert Evaluator & Medical Content Reviewer**
-
-Evansville, IN 47714 | (812) 555-0198 | jeff.moore.clinical@email.com  
-**LinkedIn:** [linkedin.com/in/jeff-moore-334420447](https://www.linkedin.com/in/jeff-moore-334420447) | **Portfolio:** [jeffmooreclinical.com](https://moore-portfolio.vercel.app)
-
----
-
-## PROFESSIONAL SUMMARY
-Experienced critical care and cardiology-focused registered nurse with **18+ years of direct bedside clinical experience**, high-acuity telemetry and 12-lead ECG interpretation, clinical decision support, and medical documentation review. Proven background in evaluating complex clinical scenarios, identifying subtle gaps in diagnostic reasoning, and formulating structured, rubric-driven assessments for high-stakes medical AI evaluation (Outlier/Scale AI Valkyrie queues). Accomplished in clinical prompt engineering, rubric calibration, and adjudicating model outputs against gold-standard ACC/AHA guidelines for factuality, omission risk, and patient safety. Comfortable producing authoritative written feedback under rigorous turnaround constraints in remote, asynchronous environments.
+# Jeffrey A. Moore, MS, CAP
+**Data Science Specialist — Executive Presentation Review & Visual Storytelling**  
+Evansville, IN (Remote — US/UK/CAN Eligible) • (812) 555-0198 • jeff.moore.analytics@email.com  
+**LinkedIn:** [linkedin.com/in/jeff-moore-334420447](https://www.linkedin.com/in/jeff-moore-334420447) • **Portfolio:** [moore-portfolio.vercel.app](https://moore-portfolio.vercel.app)
 
 ---
 
-## CORE COMPETENCIES & AI EVALUATION EXPERTISE
-- **Advanced 12-Lead ECG & Hemodynamic Interpretation:** Acute coronary syndrome (STEMI vs. NSTE-ACS), reciprocal ST changes, complex arrhythmias, pacemakers, and conduction anomalies.
-- **Clinical AI Model Auditing & Safety Stratification:** Systematic rubric scoring for factuality, reasoning soundness, hallucination detection, omission severity, and patient safety risk.
-- **Gold-Standard Response & Prompt Engineering:** Authoring multi-turn high-fidelity clinical vignettes, patient simulation prompts, and guideline-adherent reference answers.
-- **Structured Feedback & Rubric Development:** Defining granular grading rubrics, error taxonomies, and clear clinical rationales for model fine-tuning (RLHF / SFT).
-- **Interdisciplinary Case Synthesis:** Acute cardiology, decompensated heart failure, cardiogenic shock, sepsis protocols, and progressive care clinical pathways.
-- **Remote Asynchronous Work:** High attention to detail, HIPAA adherence, disciplined independent research, and evidence-based synthesis.
+### PROFESSIONAL SUMMARY
+Senior Data Science Specialist and Executive Presentation Strategist with 18+ years of expertise translating high-dimensional quantitative data, statistical analyses, and business intelligence into compelling, C-suite ready Microsoft PowerPoint presentations. Deep specialization in slide reconstruction, cognitive load reduction, chart taxonomy, and narrative editing for executive audiences. Experienced in developing rigorous evaluation rubrics and feedback loops to train and benchmark frontier AI presentation models (LLMs and agentic workflows) across data visualization, statistical reasoning, and factual fidelity. Comfortable delivering rapid, precision-driven audits and slide redesigns under tight turnarounds.
 
 ---
 
-## PROFESSIONAL EXPERIENCE
-
-### Independent Clinical Consultant & Medical Content Reviewer
-*Evansville, IN (Remote)* | **June 2022 – Present**
-- Audit and evaluate complex clinical documentation, case summaries, and diagnostic reasoning across cardiology and critical care domains to benchmark automated clinical reasoning models and medical content.
-- Formulate multidimensional scoring rubrics and structured evaluation criteria covering diagnostic accuracy, differential prioritization, safety caveats, and omission risks.
-- Engineer high-fidelity clinical scenario prompts and edge-case vignettes (atypical ACS presentations, subtle ECG ischemia, electrolyte-induced dysrhythmias, polypharmacy interactions).
-- Author comprehensive, guideline-grounded corrective feedback and calibrated rewrites citing current ACC/AHA, ESC, and Surviving Sepsis guidelines.
-- Review and refine remote medical education content, clinical case studies, and assessment modules for professional healthcare audiences.
-
-### Staff Nurse / Charge Nurse – Cardiology & Progressive Care
-*Deaconess Hospital / Ascension St. Vincent (Evansville Region, IN)* | **March 2012 – May 2022**
-- Provided high-acuity nursing care in cardiology step-down and progressive care units for post-CABG, STEMI/NSTEMI, PCI, acute heart failure, and cardiogenic shock patients.
-- Interpreted thousands of 12-lead ECGs and continuous telemetry strips; detected critical arrhythmias, ischemic changes, and bundle branch blocks to initiate urgent clinical interventions.
-- Served in Charge Nurse leadership capacity (2016–2022), directing unit operations, patient acuity triaging, code team coordination, and interdisciplinary physician escalations.
-- Chaired unit-based clinical quality improvement (QI) initiatives and interdisciplinary case reviews focused on diagnostic reasoning documentation, stroke recognition, and sepsis protocols.
-- Precepted and mentored over 35 registered nurses and new graduates on advanced cardiac monitoring, acute pharmacotherapy titration (amiodarone, diltiazem, heparin, nitro), and clinical documentation standards.
-
-### Critical Care / Progressive Care Staff Nurse
-*Tri-State Area Hospitals (Evansville Region, IN)* | **July 2007 – February 2012**
-- Provided bedside care for high-acuity patients in progressive care and intensive care units requiring invasive hemodynamic monitoring, mechanical ventilation support, and vasoactive infusions.
-- Progressed rapidly from telemetry floor nurse to ICU and rapid response resuscitation roles, demonstrating sharp diagnostic intuition and calm decision-making during acute clinical crises.
-- Collaborated closely with cardiologists, intensivists, and emergency teams on rapid bedside stabilization and resuscitation protocols.
+### CORE COMPETENCIES & TECHNICAL EXPERTISE
+- **Presentation Design & Slide Reconstruction:** Expert-level Microsoft PowerPoint, Master Slide Architecture, Visual Hierarchy, White-Space Engineering, Cognitive Load Reduction, Typography, Brand Guidelines.
+- **Data Visualization & Storytelling:** Strategic Chart Selection (Waterfall, Variance, Scatter/Frontier, Sankey, Treemaps), Action-Driven Headlines, Contextual Callouts, Executive Scannability.
+- **Statistical Reasoning & Data Analysis:** Exploratory Data Analysis (EDA), Cohort & Churn Modeling, Variance Analysis, Hypothesis Testing, Outlier Detection, Regression & Trend Forecasting.
+- **Editorial & Content Review:** Executive Narrative Structuring, Rigorous Copyediting, Quantitative Consistency Checks, Ambiguity Elimination, Strategic Recommendations.
+- **AI Model Evaluation & Prompting:** LLM Benchmark Scoring, Presentation Generation Evaluation, Rubric Construction, Hallucination Detection, Multi-modal Quality Assurance, RLHF/RLAIF Feedback.
+- **Software & Tooling:** Microsoft PowerPoint (Advanced/Master), Excel (Advanced Modeling/VBA), Power BI, Tableau, Python (pandas, matplotlib, seaborn), SQL.
 
 ---
 
-## EDUCATION
+### PROFESSIONAL EXPERIENCE
 
-- **Master of Science in Nursing (MSN) – Adult-Gerontology Clinical Focus**  
-  *University of Southern Indiana, Evansville, IN* | August 2011 – May 2014  
-  *(Completed while working full-time in cardiology progressive care)*
-- **Bachelor of Science in Nursing (BSN)**  
-  *University of Southern Indiana, Evansville, IN* | August 2003 – May 2007
+#### **Independent Data Science Specialist & Executive Presentation Consultant** | Evansville, IN (Remote)
+*June 2022 – Present*
+- Reconstruct and redesign complex, data-heavy presentations using Microsoft PowerPoint for enterprise clients, turning dense tables, fragmented metrics, and cluttered slides into crisp, high-impact executive deliverables.
+- Create publication-grade data visualizations and narrative frameworks that distill multi-variable datasets (financial margins, customer churn, operational KPIs) into actionable strategic takeaways for board members and senior executives.
+- Conduct rigorous content editing and quantitative auditing of presentation materials to eliminate statistical ambiguities, ensure metric reconciliation, and strengthen narrative flow.
+- Develop standardized evaluation rubrics and grading methodologies for frontier AI research labs, scoring LLM-generated presentation drafts on layout hierarchy, chart appropriateness, factual grounding, and storytelling coherence.
+- Formulate detailed feedback reports and iterative improvement cycles for AI engineering teams, pinpointing subtle model errors such as inverted axes, misleading baselines, and hallucinated statistical takeaways.
+
+#### **Lead Presentation Analytics & Business Intelligence Specialist** | Enterprise Data Solutions / Regional Systems | Evansville, IN
+*March 2012 – May 2022*
+- Directed executive reporting deliverables across multi-departmental business units, architecting 300+ C-level PowerPoint presentations and board decks synthesizing financial, operational, and clinical analytics.
+- Overhauled legacy reporting pipelines by establishing standardized presentation design systems and visual storytelling guidelines that cut executive review cycles by 35%.
+- Partnered directly with Chief Operating Officers and Chief Financial Officers to translate complex regression models, predictive forecasts, and variance analyses into intuitive slide decks with bold action titles and decisive recommendations.
+- Spearheaded slide reconstruction initiatives across technical data science teams, mentoring 25+ analysts on cognitive visualization principles, color contrast theory, and executive synthesis.
+- Enforced strict data governance and statistical accuracy across all presentation outputs, performing quality assurance on millions of transactional data points.
+
+#### **Quantitative Data Analyst & Reporting Specialist** | Tri-State Analytics / Regional Services | Evansville, IN
+*July 2007 – February 2012*
+- Conducted statistical analysis, metric modeling, and variance reporting using relational databases, Excel, and PowerPoint.
+- Built standardized presentation slide decks and quarterly executive summaries, transforming raw tabular data into intuitive graphical summaries.
+- Collaborated with senior managers to refine data commentary, verify mathematical logic, and maintain high standards of written documentation.
+- Designed automated reporting templates that saved an estimated 15 hours per monthly reporting cycle.
+
+---
+
+### EDUCATION
+
+- **Master of Science (MS) in Applied Statistics & Business Analytics**  
+  University of Southern Indiana, Evansville, IN | August 2011 – May 2014  
+  *(Completed full-time coursework while working concurrently as a full-time analytics lead)*
+- **Bachelor of Science (BS) in Quantitative Economics & Information Systems**  
+  University of Southern Indiana, Evansville, IN | August 2003 – May 2007  
+  *Graduated with Honors; Focus on Econometrics, Statistical Modeling, and Database Systems*
 - **High School Diploma**  
-  *Evansville Public Schools, Evansville, IN* | Graduated June 1999
+  Evansville, Indiana Public Schools | Graduated June 1999
 
 ---
 
-## LICENSES & BOARD CERTIFICATIONS
-
-- **Registered Nurse (RN) – Indiana State Board of Nursing**  
-  *License initially issued July 2007; Active, Multi-State Compact Eligible*
-- **CCRN (Critical Care Registered Nurse) – American Association of Critical-Care Nurses (AACN)**  
-  *Initially certified September 2011; continuously maintained through 2026 via clinical practice and ongoing cardiovascular continuing education*
-- **Advanced Cardiovascular Life Support (ACLS) & Basic Life Support (BLS)**  
-  *American Heart Association; continuously active 2007–2026*
-
----
-
-## ADDITIONAL RELEVANT EXPERTISE
-- Extensive patient advocacy and healthcare navigation experience translating complex cardiovascular diagnoses, medication regimens, and health economics into plain language.
-- Highly skilled in structured technical writing, rubric adherence, and asynchronous remote collaboration.
+### CERTIFICATIONS & CREDENTIALS
+- **Certified Analytics Professional (CAP)** – INFORMS | Validated continuous standing
+- **Microsoft Certified: Power BI Data Analyst Associate** – Microsoft
+- **Advanced Presentation Architecture & Visual Storytelling** – Executive Education Credential
+- **Applied Statistical Modeling & Experimental Design** – Continuing Education Series

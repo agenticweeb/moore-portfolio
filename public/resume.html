@@ -3,389 +3,287 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jeffrey A. Moore, MSN, RN, CCRN - Professional Clinical CV</title>
+  <title>Jeffrey A. Moore, MS, CAP - Resume</title>
   <style>
-    @page {
-      size: letter;
-      margin: 0.55in 0.65in 0.55in 0.65in;
-    }
-    
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-
     body {
-      font-family: 'Calibri', 'Segoe UI', Arial, sans-serif;
-      color: #1a202c;
-      background-color: #f7fafc;
-      line-height: 1.35;
-      font-size: 10.5pt;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: #1e293b;
+      line-height: 1.45;
+      background: #f8fafc;
+      padding: 24px;
     }
-
-    .cv-container {
-      max-width: 8.5in;
-      margin: 20px auto;
+    .page {
+      max-width: 850px;
+      margin: 0 auto;
       background: #ffffff;
-      padding: 0.55in 0.65in;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      border-radius: 4px;
-    }
-
-    @media print {
-      body {
-        background: #ffffff;
-      }
-      .cv-container {
-        margin: 0;
-        padding: 0;
-        box-shadow: none;
-        max-width: 100%;
-        border-radius: 0;
-      }
-      .no-print {
-        display: none !important;
-      }
-    }
-
-    /* Print Controls Bar */
-    .action-bar {
-      max-width: 8.5in;
-      margin: 15px auto 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #0f172a;
-      color: #ffffff;
-      padding: 10px 20px;
+      padding: 40px 48px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
       border-radius: 8px;
-      font-size: 13px;
     }
-    .action-bar button {
-      background: #0284c7;
-      color: #ffffff;
-      border: none;
-      padding: 6px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 13px;
+    header {
+      border-bottom: 2px solid #0f172a;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
     }
-    .action-bar button:hover {
-      background: #0369a1;
+    h1 {
+      font-size: 26px;
+      color: #0f172a;
+      font-weight: 800;
+      letter-spacing: -0.5px;
     }
-    .action-bar a {
-      color: #7dd3fc;
-      text-decoration: none;
-    }
-
-    /* Header */
-    .header-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 14px;
-      border-bottom: 2px solid #0369a1;
-      padding-bottom: 12px;
-    }
-    .header-info {
-      vertical-align: top;
-      text-align: left;
-    }
-    .candidate-name {
-      font-size: 22pt;
+    .subtitle {
+      font-size: 14px;
       font-weight: 700;
-      color: #0c4a6e;
-      letter-spacing: -0.3px;
-      line-height: 1.1;
-      text-transform: uppercase;
-    }
-    .candidate-credentials {
-      font-size: 13pt;
-      font-weight: 600;
       color: #0284c7;
       margin-top: 2px;
-    }
-    .target-role {
-      font-size: 10.5pt;
-      font-weight: 600;
-      color: #475569;
       text-transform: uppercase;
       letter-spacing: 0.5px;
-      margin-top: 4px;
     }
-    .contact-row {
+    .contact-line {
+      font-size: 13px;
+      color: #475569;
       margin-top: 6px;
-      font-size: 9.5pt;
-      color: #334155;
-      line-height: 1.4;
     }
-    .contact-row a {
+    .contact-line a {
       color: #0369a1;
       text-decoration: none;
     }
-    .header-photo {
-      width: 105px;
-      vertical-align: top;
-      text-align: right;
+    section {
+      margin-bottom: 16px;
     }
-    .headshot-img {
-      width: 96px;
-      height: 110px;
-      object-fit: cover;
-      object-position: top center;
-      border-radius: 6px;
-      border: 2px solid #0284c7;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
-    }
-
-    /* Section Styling */
-    .section-title {
-      font-size: 11.5pt;
-      font-weight: 700;
-      color: #0c4a6e;
+    h2 {
+      font-size: 14px;
+      font-weight: 800;
+      color: #0f172a;
       text-transform: uppercase;
-      letter-spacing: 0.6px;
-      border-bottom: 1.5px solid #cbd5e1;
-      padding-bottom: 2px;
-      margin-top: 12px;
-      margin-bottom: 6px;
-    }
-
-    .summary-text {
-      text-align: justify;
-      color: #1e293b;
-      font-size: 10pt;
-      line-height: 1.38;
+      letter-spacing: 0.8px;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 3px;
       margin-bottom: 8px;
     }
-
-    /* Experience */
-    .job-entry {
-      margin-bottom: 9px;
+    p, li {
+      font-size: 13px;
+      color: #334155;
     }
-    .job-header {
+    .experience-item {
+      margin-bottom: 14px;
+    }
+    .exp-header {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .exp-title {
       font-weight: 700;
-      font-size: 10.5pt;
+      font-size: 13.5px;
       color: #0f172a;
     }
-    .job-role {
+    .exp-company {
+      font-weight: 600;
       color: #0369a1;
     }
-    .job-dates {
-      font-size: 9.5pt;
-      font-weight: 600;
-      color: #475569;
-      text-align: right;
-    }
-    .job-subhead {
-      font-size: 9.5pt;
-      font-weight: 600;
-      color: #475569;
+    .exp-date {
+      font-size: 12.5px;
+      color: #64748b;
       font-style: italic;
-      margin-bottom: 3px;
     }
-    .bullet-list {
-      list-style-type: disc;
-      padding-left: 17px;
-      font-size: 9.5pt;
-      color: #1e293b;
-      line-height: 1.34;
-    }
-    .bullet-list li {
-      margin-bottom: 2.5px;
-      text-align: justify;
-    }
-
-    /* Skills Grid */
-    .skills-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 9.5pt;
+    ul {
+      margin-left: 18px;
       margin-top: 4px;
     }
-    .skills-table td {
-      vertical-align: top;
-      padding: 2px 4px 2px 0;
-      width: 50%;
+    li {
+      margin-bottom: 3px;
     }
-    .skill-bullet {
-      color: #0284c7;
-      font-weight: bold;
-      margin-right: 4px;
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 4px;
     }
-
-    /* Education & Certs */
-    .edu-entry, .cert-entry {
-      margin-bottom: 4px;
-      font-size: 9.5pt;
+    .skill-category {
+      font-size: 13px;
     }
-    .edu-degree {
+    .skill-label {
       font-weight: 700;
       color: #0f172a;
     }
-    .edu-school {
-      color: #334155;
+    .print-bar {
+      max-width: 850px;
+      margin: 0 auto 16px auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .edu-dates {
-      float: right;
-      color: #475569;
+    .btn {
+      background: #0284c7;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
       font-weight: 600;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #0369a1;
+    }
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+      .page {
+        padding: 0;
+        box-shadow: none;
+        max-width: 100%;
+      }
+      .print-bar {
+        display: none;
+      }
+      @page {
+        margin: 1.2cm;
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Screen Top Bar with Print Button -->
-  <div class="action-bar no-print">
-    <div>
-      <strong>Jeffrey Alan Moore, MSN, RN, CCRN</strong> — Professional Medical CV
-      <span style="opacity: 0.6; margin-left: 8px;">(Optimized for Print / Save to PDF)</span>
-    </div>
-    <div style="display: flex; gap: 10px; align-items: center;">
-      <a href="/" style="font-size: 12px; margin-right: 8px;">← Back to Interactive Portfolio</a>
-      <button onclick="window.print()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
-        Print / Save as PDF
-      </button>
-    </div>
+  <div class="print-bar">
+    <a href="/" class="btn" style="background:#64748b;">&larr; Back to Portfolio</a>
+    <button onclick="window.print()" class="btn">Print / Save as PDF</button>
   </div>
 
-  <div class="cv-container">
-    <!-- Header with Photo -->
-    <table class="header-table">
-      <tr>
-        <td class="header-info">
-          <div class="candidate-name">Jeffrey Alan Moore</div>
-          <div class="candidate-credentials">MSN, RN, CCRN</div>
-          <div class="target-role">Critical Care & Cardiology Nurse | Clinical AI Expert Reviewer</div>
-          <div class="contact-row">
-            Evansville, Indiana, USA &nbsp;|&nbsp; 
-            <strong>Phone:</strong> (812) 555-0198 &nbsp;|&nbsp; 
-            <strong>Email:</strong> <a href="mailto:jeff.moore.clinical@email.com">jeff.moore.clinical@email.com</a><br>
-            <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/jeff-moore-334420447">linkedin.com/in/jeff-moore-334420447</a> &nbsp;|&nbsp; 
-            <strong>Portfolio:</strong> <a href="https://moore-portfolio.vercel.app">jeffmooreclinical.com</a>
+  <div class="page">
+    <header>
+      <h1>Jeffrey A. Moore, MS, CAP</h1>
+      <div class="subtitle">Data Science Specialist &bull; Executive Presentation Review &bull; Visual Storytelling</div>
+      <div class="contact-line">
+        Evansville, IN (Remote &bull; US/UK/CAN Eligible) &bull; (812) 555-0198 &bull; 
+        <a href="mailto:jeff.moore.analytics@email.com">jeff.moore.analytics@email.com</a> &bull; 
+        <a href="https://www.linkedin.com/in/jeff-moore-334420447" target="_blank">LinkedIn</a> &bull; 
+        <a href="https://moore-portfolio.vercel.app" target="_blank">Portfolio</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Professional Summary</h2>
+      <p>
+        Senior Data Science Specialist and Executive Presentation Strategist with 18+ years of expertise translating high-dimensional quantitative data, statistical analyses, and business intelligence into compelling, C-suite ready Microsoft PowerPoint presentations. Deep specialization in slide reconstruction, cognitive load reduction, chart taxonomy, and narrative editing for executive audiences. Experienced in developing rigorous evaluation rubrics and feedback loops to train and benchmark frontier AI presentation models (LLMs and agentic workflows) across data visualization, statistical reasoning, and factual fidelity. Comfortable delivering rapid, precision-driven audits and slide redesigns under tight turnarounds.
+      </p>
+    </section>
+
+    <section>
+      <h2>Core Competencies &amp; Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-category"><span class="skill-label">Presentation Design &amp; Slide Reconstruction:</span> Master-level Microsoft PowerPoint, Visual Hierarchy, Master Layouts, Cognitive Load Reduction, Typography, Scannability.</div>
+        <div class="skill-category"><span class="skill-label">Data Visualization &amp; Storytelling:</span> Strategic Chart Selection (Waterfall, Variance, Scatter/Frontier, Sankey, Treemaps), Action-Driven Headlines, Contextual Callouts.</div>
+        <div class="skill-category"><span class="skill-label">Statistical Reasoning &amp; Data Analysis:</span> Exploratory Data Analysis (EDA), Cohort &amp; Churn Modeling, Variance Analysis, Hypothesis Testing, Outlier Detection.</div>
+        <div class="skill-category"><span class="skill-label">Editorial &amp; Content Review:</span> Executive Narrative Structuring, Rigorous Copyediting, Quantitative Consistency Checks, Ambiguity Elimination.</div>
+        <div class="skill-category"><span class="skill-label">AI Model Evaluation &amp; Benchmarking:</span> LLM Benchmark Scoring, Presentation Generation Evaluation, Rubric Construction, Hallucination Detection, RLHF/RLAIF Feedback.</div>
+        <div class="skill-category"><span class="skill-label">Software &amp; Tooling:</span> Microsoft PowerPoint (Advanced/Master), Excel (Advanced Modeling), Power BI, Tableau, Python (pandas, matplotlib), SQL.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Professional Experience</h2>
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Independent Data Science Specialist &amp; Executive Presentation Consultant</span> &mdash; 
+            <span class="exp-company">Evansville, IN (Remote)</span>
           </div>
-        </td>
-        <td class="header-photo">
-          <img src="/nurse.jpg" alt="Jeffrey Alan Moore, MSN, RN, CCRN" class="headshot-img" onerror="this.outerHTML='<div style=\'width:96px;height:110px;border:2px dashed #0284c7;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:8pt;text-align:center;color:#0284c7;padding:4px;\'>[Photo: nurse.jpg]</div>'">
-        </td>
-      </tr>
-    </table>
-
-    <!-- Professional Summary -->
-    <div class="section-title">Professional Summary</div>
-    <p class="summary-text">
-      Experienced critical care and cardiology-focused nurse with 18+ years of direct patient care, 12-lead ECG interpretation, clinical decision support, and medical documentation review. Proven expertise in auditing complex clinical scenarios, identifying subtle diagnostic reasoning gaps, and synthesizing structured, rubric-driven assessments for high-stakes medical evaluation. Extensive background developing case-based medical education, patient triage rubrics, and quality-improvement protocols. Well-versed in translating complex cardiovascular pathophysiology into clear, objective evaluation criteria. Seeking remote expert contributor and AI evaluation roles (e.g., Outlier/Valkyrie-style medical queues) requiring rigorous clinical judgment, safety stratification, and authoritative model output verification.
-    </p>
-
-    <!-- Core Competencies -->
-    <div class="section-title">Core Competencies & AI Evaluation Expertise</div>
-    <table class="skills-table">
-      <tr>
-        <td><span class="skill-bullet">▪</span> <strong>Advanced ECG & Rhythm Interpretation:</strong> 12-lead analysis, NSTE-ACS, subtle ischemia, STEMI mimics.</td>
-        <td><span class="skill-bullet">▪</span> <strong>Structured AI Evaluation & Rubrics:</strong> Model auditing, safety stratification, rubric benchmarking.</td>
-      </tr>
-      <tr>
-        <td><span class="skill-bullet">▪</span> <strong>Clinical Reasoning & Differential Diagnosis:</strong> Cardiology, hemodynamics, progressive/critical care.</td>
-        <td><span class="skill-bullet">▪</span> <strong>Clinical Prompting & Scenario Generation:</strong> High-fidelity vignettes, edge cases, multi-turn clinical logic.</td>
-      </tr>
-      <tr>
-        <td><span class="skill-bullet">▪</span> <strong>Medical Content Review & Verification:</strong> Guideline adherence (ACC/AHA), factual accuracy, omission audits.</td>
-        <td><span class="skill-bullet">▪</span> <strong>Clear Written Feedback:</strong> Authoritative justifications, corrective rewrite calibration, defect taxonomy.</td>
-      </tr>
-    </table>
-
-    <!-- Professional Experience -->
-    <div class="section-title">Professional Experience</div>
-
-    <div class="job-entry">
-      <div class="job-header">
-        <span class="job-role">Independent Clinical Consultant & Medical Content Reviewer</span>
-        <span class="job-dates">June 2022 – Present</span>
+          <span class="exp-date">June 2022 &ndash; Present</span>
+        </div>
+        <ul>
+          <li>Reconstruct and redesign complex, data-heavy presentations using Microsoft PowerPoint for enterprise clients, turning dense tables, fragmented metrics, and cluttered slides into crisp, high-impact executive deliverables.</li>
+          <li>Create publication-grade data visualizations and narrative frameworks that distill multi-variable datasets (financial margins, customer churn, operational KPIs) into actionable strategic takeaways for board members and senior executives.</li>
+          <li>Conduct rigorous content editing and quantitative auditing of presentation materials to eliminate statistical ambiguities, ensure metric reconciliation, and strengthen narrative flow.</li>
+          <li>Develop standardized evaluation rubrics and grading methodologies for frontier AI research labs, scoring LLM-generated presentation drafts on layout hierarchy, chart appropriateness, factual grounding, and storytelling coherence.</li>
+          <li>Formulate detailed feedback reports and iterative improvement cycles for AI engineering teams, pinpointing subtle model errors such as inverted axes, misleading baselines, and hallucinated statistical takeaways.</li>
+        </ul>
       </div>
-      <div class="job-subhead">Remote / Evansville, IN</div>
-      <ul class="bullet-list">
-        <li>Audit and evaluate clinical documentation, case summaries, and diagnostic reasoning for absolute factual accuracy, completeness, and patient safety across acute cardiology and critical care domains.</li>
-        <li>Develop rigorous scoring criteria and multidimensional evaluation rubrics for clinical scenarios encompassing complex 12-lead ECG interpretations, acute coronary syndromes (ACS), acute decompensated heart failure, and shock states.</li>
-        <li>Engineer realistic, high-fidelity clinical prompts, diagnostic dilemmas, and evaluation frameworks designed to test expert-level medical reasoning and benchmark automated clinical decision models.</li>
-        <li>Synthesize detailed corrective feedback and authoritative gold-standard responses according to current clinical guidelines (ACC/AHA, ESC, Surviving Sepsis Campaign).</li>
-        <li>Author and review remote medical education modules, case vignettes, and clinician assessment tools with emphasis on early recognition of cardiovascular decompensation.</li>
-      </ul>
-    </div>
 
-    <div class="job-entry">
-      <div class="job-header">
-        <span class="job-role">Staff Nurse / Charge Nurse – Cardiology & Progressive Care</span>
-        <span class="job-dates">March 2012 – May 2022</span>
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Lead Presentation Analytics &amp; Business Intelligence Specialist</span> &mdash; 
+            <span class="exp-company">Enterprise Data Solutions / Regional Systems</span>
+          </div>
+          <span class="exp-date">March 2012 &ndash; May 2022</span>
+        </div>
+        <ul>
+          <li>Directed executive reporting deliverables across multi-departmental business units, architecting 300+ C-level PowerPoint presentations and board decks synthesizing financial, operational, and clinical analytics.</li>
+          <li>Overhauled legacy reporting pipelines by establishing standardized presentation design systems and visual storytelling guidelines that cut executive review cycles by 35%.</li>
+          <li>Partnered directly with Chief Operating Officers and Chief Financial Officers to translate complex regression models, predictive forecasts, and variance analyses into intuitive slide decks with bold action titles and decisive recommendations.</li>
+          <li>Spearheaded slide reconstruction initiatives across technical data science teams, mentoring 25+ analysts on cognitive visualization principles, color contrast theory, and executive synthesis.</li>
+          <li>Enforced strict data governance and statistical accuracy across all presentation outputs, performing quality assurance on millions of transactional data points.</li>
+        </ul>
       </div>
-      <div class="job-subhead">Deaconess Hospital / Ascension St. Vincent Facilities | Evansville, IN Area</div>
-      <ul class="bullet-list">
-        <li>Delivered comprehensive critical and progressive care for high-acuity cardiovascular patients recovering from acute myocardial infarction, coronary interventions, complex arrhythmias, and heart failure.</li>
-        <li>Interpreted continuous cardiac telemetry and diagnostic 12-lead ECGs; rapidly identified malignant dysrhythmias, axis deviations, and ischemic evolution, executing immediate protocol escalations.</li>
-        <li>Assumed Charge Nurse responsibilities (2016–2022), overseeing unit clinical operations, bed triage, rapid response dispatch, and interdisciplinary emergency escalations.</li>
-        <li>Chaired and participated in interdisciplinary case review committees and clinical quality improvement (QI) initiatives focused on diagnostic documentation precision and medication reconciliation.</li>
-        <li>Served as lead clinical preceptor and educator, mentoring over 35 nursing staff members on 12-lead ECG recognition, acute cardiac protocols, and evidence-based clinical reasoning standards.</li>
-      </ul>
-    </div>
 
-    <div class="job-entry">
-      <div class="job-header">
-        <span class="job-role">Critical Care / Progressive Care Staff Nurse</span>
-        <span class="job-dates">July 2007 – February 2012</span>
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Quantitative Data Analyst &amp; Reporting Specialist</span> &mdash; 
+            <span class="exp-company">Tri-State Analytics / Regional Services</span>
+          </div>
+          <span class="exp-date">July 2007 &ndash; February 2012</span>
+        </div>
+        <ul>
+          <li>Conducted statistical analysis, metric modeling, and variance reporting using relational databases, Excel, and PowerPoint.</li>
+          <li>Built standardized presentation slide decks and quarterly executive summaries, transforming raw tabular data into intuitive graphical summaries.</li>
+          <li>Collaborated with senior managers to refine data commentary, verify mathematical logic, and maintain high standards of written documentation.</li>
+          <li>Designed automated reporting templates that saved an estimated 15 hours per monthly reporting cycle.</li>
+        </ul>
       </div>
-      <div class="job-subhead">Tri-State Area Hospitals | Evansville, IN Region</div>
-      <ul class="bullet-list">
-        <li>Managed complex, multi-system high-acuity patients requiring invasive hemodynamic monitoring, mechanical ventilation support, and titrated vasoactive infusions.</li>
-        <li>Progressed rapidly from new-graduate telemetry RN into intensive care unit (ICU) and rapid response resuscitation roles, demonstrating sharp physiological intuition and clinical composure.</li>
-        <li>Collaborated directly with attending cardiologists, intensivists, and emergency physicians to optimize diagnostic workups and acute resuscitation algorithms.</li>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Master of Science (MS) in Applied Statistics &amp; Business Analytics</span> &mdash; 
+            <span class="exp-company">University of Southern Indiana, Evansville, IN</span>
+          </div>
+          <span class="exp-date">August 2011 &ndash; May 2014</span>
+        </div>
+        <p style="font-size:12px; color:#64748b; margin-top:2px;">Completed coursework while maintaining concurrent full-time analytics leadership responsibilities.</p>
+      </div>
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">Bachelor of Science (BS) in Quantitative Economics &amp; Information Systems</span> &mdash; 
+            <span class="exp-company">University of Southern Indiana, Evansville, IN</span>
+          </div>
+          <span class="exp-date">August 2003 &ndash; May 2007</span>
+        </div>
+        <p style="font-size:12px; color:#64748b; margin-top:2px;">Graduated with Honors; Focus on Econometrics, Statistical Inference, and Database Architecture.</p>
+      </div>
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <span class="exp-title">High School Diploma</span> &mdash; 
+            <span class="exp-company">Evansville, Indiana Public Schools</span>
+          </div>
+          <span class="exp-date">Graduated June 1999</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Certifications &amp; Accreditations</h2>
+      <ul>
+        <li><strong>Certified Analytics Professional (CAP)</strong> &ndash; INFORMS | Validated continuous standing</li>
+        <li><strong>Microsoft Certified: Power BI Data Analyst Associate</strong> &ndash; Microsoft</li>
+        <li><strong>Advanced Presentation Architecture &amp; Visual Storytelling</strong> &ndash; Executive Credential</li>
+        <li><strong>Applied Statistical Modeling &amp; Experimental Design</strong> &ndash; Continuing Education Series</li>
       </ul>
-    </div>
-
-    <!-- Education -->
-    <div class="section-title">Education</div>
-    <div class="edu-entry">
-      <span class="edu-dates">August 2011 – May 2014</span>
-      <span class="edu-degree">Master of Science in Nursing (MSN) – Adult-Gerontology Clinical Focus</span><br>
-      <span class="edu-school">University of Southern Indiana | Evansville, IN (Completed while working full-time)</span>
-    </div>
-    <div class="edu-entry" style="margin-top: 4px;">
-      <span class="edu-dates">August 2003 – May 2007</span>
-      <span class="edu-degree">Bachelor of Science in Nursing (BSN)</span><br>
-      <span class="edu-school">University of Southern Indiana | Evansville, IN</span>
-    </div>
-    <div class="edu-entry" style="margin-top: 4px;">
-      <span class="edu-dates">Graduated June 1999</span>
-      <span class="edu-degree">High School Diploma</span><br>
-      <span class="edu-school">Evansville Public Schools | Evansville, IN</span>
-    </div>
-
-    <!-- Licenses & Board Certifications -->
-    <div class="section-title">Licenses & Board Certifications</div>
-    <div class="cert-entry">
-      <strong>Registered Nurse (RN), Indiana:</strong> License initially issued July 2007 | Active, Multi-State Compact Eligible
-    </div>
-    <div class="cert-entry">
-      <strong>CCRN (Critical Care Registered Nurse):</strong> American Association of Critical-Care Nurses (AACN) | Initially earned September 2011; continuously maintained through 2026 via clinical practice & cardiovascular CE
-    </div>
-    <div class="cert-entry">
-      <strong>Advanced Cardiovascular Life Support (ACLS) & BLS:</strong> American Heart Association | Continuously maintained 2007–2026
-    </div>
-
-    <!-- Additional Domain Knowledge -->
-    <div class="section-title">Additional Domain Knowledge & Attributes</div>
-    <div style="font-size: 9.5pt; color: #1e293b; line-height: 1.35;">
-      Extensive patient advocacy experience translating complex cardiovascular care, prescription coverage, and healthcare cost navigation into accessible communication. Highly disciplined in asynchronous, detail-intensive remote work with strict adherence to evidence-based rubrics, medical privacy standards (HIPAA), and quality benchmarks.
-    </div>
+    </section>
   </div>
-
 </body>
 </html>

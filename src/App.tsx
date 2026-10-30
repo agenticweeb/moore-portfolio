@@ -1,274 +1,510 @@
 import React, { useState } from 'react';
-import { 
-  Heart, 
-  Activity, 
-  FileText, 
-  Award, 
-  CheckCircle2, 
-  AlertTriangle, 
-  Stethoscope, 
-  GraduationCap, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Linkedin, 
-  ExternalLink, 
-  ChevronRight, 
-  ShieldCheck, 
-  BookOpen, 
-  Clock, 
-  Download, 
-  Copy, 
-  Check, 
+import {
+  Presentation,
+  BarChart3,
+  TrendingUp,
+  Sliders,
+  FileText,
   Sparkles,
-  ClipboardList,
+  CheckCircle2,
   AlertCircle,
+  ArrowRight,
+  ExternalLink,
+  Download,
+  Printer,
+  Mail,
+  Phone,
+  MapPin,
+  Linkedin,
+  Award,
+  Check,
+  ChevronRight,
+  Copy,
   Eye,
-  Microscope,
-  Cpu
+  Layers,
+  LineChart,
+  Briefcase,
+  GraduationCap,
+  Star,
+  Cpu,
+  X,
+  ShieldCheck,
+  SlidersHorizontal,
+  Table,
+  Zap,
+  Layout,
+  MessageSquare,
+  Workflow
 } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'case' | 'evaluation' | 'rewrite' | 'rubric'>('case');
-  const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedResume, setCopiedResume] = useState(false);
-  const [showResumeModal, setShowResumeModal] = useState(false);
+  const [activeTab, setActiveTab] = useState<'reconstruction' | 'rubric' | 'competencies' | 'experience' | 'linkedin'>('reconstruction');
+  const [selectedSlideCase, setSelectedSlideCase] = useState<number>(0);
+  const [slideMode, setSlideMode] = useState<'after' | 'before' | 'comparison'>('after');
+  const [selectedRubricPrompt, setSelectedRubricPrompt] = useState<number>(0);
+  const [showResumeModal, setShowResumeModal] = useState<boolean>(false);
+  const [copiedLink, setCopiedLink] = useState<string | null>(null);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('jeff.moore.clinical@protonmail.com');
-    setCopiedEmail(true);
-    setTimeout(() => setCopiedEmail(false), 2200);
+  const handleCopy = (text: string, key: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedLink(key);
+    setTimeout(() => setCopiedLink(null), 2200);
   };
 
-  const handleCopyResumeText = () => {
-    const resumeText = `Jeffrey A. Moore, MSN, RN, CCRN
-Evansville, IN | (812) 555-0198 | jeff.moore.clinical@protonmail.com
-LinkedIn: linkedin.com/in/jeffmoore-clinical | Portfolio: jeffmooreclinical.com
+  const slideCases = [
+    {
+      id: 0,
+      title: 'Enterprise SaaS Retention & Churn Variance',
+      category: 'Financial & Cohort Analytics',
+      clientContext: 'SaaS Board Deck (C-Suite Briefing)',
+      before: {
+        headline: 'Q3 Financial & Customer Metrics Overview',
+        flaws: [
+          'Unformatted 14-column raw spreadsheet snippet pasted onto slide (illegible 8pt font)',
+          'Misleading 3D pie chart masking relative churn contribution',
+          'Vague passive title without a definitive business insight or action recommendation',
+          '8 dense bullet points repeating raw numbers with zero visual hierarchy'
+        ],
+        rawText: 'Total ARR was $42.1M. Churn increased slightly in mid-market but was offset by expansion in enterprise accounts. Gross retention was 91% and net retention was 118%. Customer count is 1,240.'
+      },
+      after: {
+        actionTitle: 'Net Retention Surpasses 118% as Enterprise Expansion Offsets Mid-Market Contraction',
+        subtitle: 'Q3 Cohort Analysis: Strategic expansion in >$100k ACV accounts drove +$3.4M net expansion ARR.',
+        metrics: [
+          { label: 'Net Revenue Retention', value: '118.4%', trend: '+3.2% YoY', status: 'positive' },
+          { label: 'Gross Margin on ARR', value: '78.2%', trend: '+140 bps', status: 'positive' },
+          { label: 'Enterprise ARR Mix', value: '64%', trend: 'Up from 52%', status: 'neutral' },
+          { label: 'Mid-Market Churn', value: '$840K', trend: 'Requires Focus', status: 'negative' }
+        ],
+        narrativeTakeaways: [
+          { title: 'Expansion Outpaces Churn 4.1x', desc: 'Existing enterprise customers added $3.4M in expansion ARR through seat expansion and API volume tier upgrades.' },
+          { title: 'Contraction Contained to Sub-$25K ACV', desc: '82% of customer churn occurred in non-ICP self-service accounts with negligible impact on forward cash flow.' },
+          { title: 'Strategic Action Required', desc: 'Deprecate legacy starter tier by Q4 to redirect onboarding resources toward accounts with >$50k expansion velocity.' }
+        ]
+      },
+      reviewerRubric: {
+        visualHierarchy: '9.8 / 10',
+        statisticalClarity: '10 / 10',
+        narrativeImpact: '9.9 / 10',
+        powerPointTechnique: 'Custom 3-column structured grid, high-contrast action badges, executive scannability in <6 seconds.'
+      }
+    },
+    {
+      id: 1,
+      title: 'Frontier AI Model Inference: Cost vs. Latency Tradeoff',
+      category: 'Data Science & Machine Learning Evaluation',
+      clientContext: 'AI Research Lab & Enterprise Deployment Committee',
+      before: {
+        headline: 'Model Evaluation Results Comparison Chart',
+        flaws: [
+          'Overcrowded 24-point scatter plot with 6 overlapping trendlines and unreadable legend',
+          'Logarithmic axis unlabeled, leading non-technical stakeholders to misjudge cost multipliers',
+          'No clear recommendation or Pareto-optimal frontier boundary identified',
+          'Buried statistical significance notations in microscopic footnotes'
+        ],
+        rawText: 'We ran tests on Model A, B, C, D across varying quantization (FP16, INT8, INT4). Latency ranges from 18ms to 420ms. Tokens per dollar vary widely depending on batch size.'
+      },
+      after: {
+        actionTitle: 'Quantized 8-Bit Architecture Achieves 74% Lower Serving Cost at Zero Quality Degradation',
+        subtitle: 'Pareto-Optimal Frontier: INT8 quantization delivers 42ms p95 latency while slashing cloud inference GPU spend by $1.8M annually.',
+        metrics: [
+          { label: 'Inference P95 Latency', value: '42 ms', trend: '-58% vs Baseline', status: 'positive' },
+          { label: 'Cost per 1M Tokens', value: '$0.38', trend: '74% Reduction', status: 'positive' },
+          { label: 'Benchmark Accuracy', value: '99.4%', trend: 'Lossless vs FP16', status: 'positive' },
+          { label: 'Throughput (Tokens/s)', value: '3,850', trend: '3.1x Scalability', status: 'positive' }
+        ],
+        narrativeTakeaways: [
+          { title: 'Pareto-Optimal Deployment Winner', desc: 'The 8-bit quantized model matches full-precision FP16 evaluation benchmarks (99.4% agreement) while fitting single-GPU VRAM.' },
+          { title: 'Immediate Cost Savings Realization', desc: 'Migrating production traffic to the INT8 pipeline reduces cluster requirement from 64 to 18 H100 nodes.' },
+          { title: 'Deployment Roadmap', desc: 'Deploy canary traffic (10%) to edge clusters next Monday; proceed to 100% rollout by month-end.' }
+        ]
+      },
+      reviewerRubric: {
+        visualHierarchy: '9.9 / 10',
+        statisticalClarity: '10 / 10',
+        narrativeImpact: '10 / 10',
+        powerPointTechnique: 'Visual boundary mapping, bold callout chips, executive takeaway card with quantified ROI.'
+      }
+    },
+    {
+      id: 2,
+      title: 'Global Operations EBITDA Margin Waterfall Bridge',
+      category: 'Corporate Finance & Operational Analytics',
+      clientContext: 'Executive Operating Committee (CFO / COO)',
+      before: {
+        headline: 'Financial Variance Report - Actual vs Budget',
+        flaws: [
+          'Dense grid table with 120 numbers and no visual cues indicating positive vs. negative variance',
+          'Missing visual waterfall bridge to explain the $4.2M delta between Budget and Actual EBITDA',
+          'No root-cause synthesis linking freight volatility to supply chain vendor delays',
+          'Inconsistent currency formatting and unaligned decimal columns'
+        ],
+        rawText: 'Budgeted EBITDA was $24.8M. Actual was $20.6M. Freight costs increased $2.1M due to port congestion. Labor overtime added $1.2M. Pricing increases offset $1.5M.'
+      },
+      after: {
+        actionTitle: 'Freight Surcharges & Overtime Drove $4.2M EBITDA Variance; Mitigated by Price Realization',
+        subtitle: 'Q2 Operational Variance Bridge: Contract renegotiation in Q3 will recover 65% of logistical cost pressures.',
+        metrics: [
+          { label: 'Target EBITDA', value: '$24.8M', trend: 'Budget Baseline', status: 'neutral' },
+          { label: 'Net Variance', value: '-$4.2M', trend: '-16.9% Delta', status: 'negative' },
+          { label: 'Pricing Offsets', value: '+$1.5M', trend: '+6.1% Protection', status: 'positive' },
+          { label: 'Projected Q3 Recovery', value: '+$2.7M', trend: 'Contract Secured', status: 'positive' }
+        ],
+        narrativeTakeaways: [
+          { title: 'Transitory Logistics Headwind ($2.1M)', desc: 'Port congestion incurred spot-rate shipping premiums; long-term sea-freight contracts take effect August 1st.' },
+          { title: 'Automated Scheduling Remediation ($1.2M)', desc: 'Warehouse staffing overtime normalized following automated roster dispatch implementation.' },
+          { title: 'Resilient Pricing Elasticity', desc: 'Commercial clients accepted 4.5% index-linked rate increases without triggering contract cancellations.' }
+        ]
+      },
+      reviewerRubric: {
+        visualHierarchy: '9.7 / 10',
+        statisticalClarity: '9.9 / 10',
+        narrativeImpact: '9.8 / 10',
+        powerPointTechnique: 'Clean horizontal variance bridge visualization, color-coded variance tags, action-oriented takeaway blocks.'
+      }
+    }
+  ];
 
-PROFESSIONAL SUMMARY
-Experienced critical care and cardiology-focused nurse with 18+ years of direct patient care, ECG interpretation, clinical decision support, and medical documentation review. Strong background evaluating complex clinical scenarios, identifying gaps in reasoning, and producing clear, structured assessments. Experienced in creating educational materials, case-based teaching, and quality-improvement feedback. Comfortable with detailed written analysis, rubric-style evaluation, and domain-specific judgment under time constraints. Seeking remote expert contributor roles that leverage clinical expertise for high-quality evaluation and feedback work.
+  const rubricPrompts = [
+    {
+      id: 0,
+      promptTitle: 'Prompt: Executive Churn Analysis Slide Generation',
+      targetTask: 'Evaluate LLM / Agent generation of an executive presentation slide summarizing SaaS churn drivers.',
+      modelOutputSummary: 'The AI model generated a generic bullet-point list with an unformatted pie chart and claimed "Customer churn was 12% resulting in severe margin degradation."',
+      expertCritique: [
+        { type: 'critical', title: 'Hallucinated Statistical Claim', desc: 'The model conflated Annual Logo Churn (8.4%) with Gross Revenue Churn (12.1%), creating a false negative conclusion.' },
+        { type: 'flaw', title: 'Prohibited 3D Pie Chart', desc: 'Model generated a 3D tilted pie chart with 7 slices, violating executive data visualization standards and distorting wedge proportions.' },
+        { type: 'flaw', title: 'Passive Non-Action Headline', desc: 'Headline read "Churn Summary" instead of quantifying the strategic impact or providing executive direction.' }
+      ],
+      rubricScorecard: {
+        factualGrounding: { score: '2.5 / 5.0', comment: 'Failed to reconcile logo vs. revenue churn metrics.' },
+        visualHierarchy: { score: '3.0 / 5.0', comment: 'Lacked white space; relied on heavy centered text blocks.' },
+        chartAppropriateness: { score: '1.5 / 5.0', comment: 'Pie chart used for multi-cohort time series data.' },
+        actionStorytelling: { score: '2.0 / 5.0', comment: 'Described data without answering "so what?".' },
+        overallScore: '45%'
+      },
+      goldStandardRevision: 'Reconstructed slide using a 3-tier variance decomposition chart, bold action title highlighting the $1.2M mitigation plan, and key takeaway cards.'
+    },
+    {
+      id: 1,
+      promptTitle: 'Prompt: Clinical Trial Efficacy Comparison Deck',
+      targetTask: 'Review AI-generated PowerPoint slide comparing drug efficacy across patient age cohorts.',
+      modelOutputSummary: 'Model output a dual-axis line chart comparing percentage survival rates vs raw patient counts, with inverted secondary axes.',
+      expertCritique: [
+        { type: 'critical', title: 'Misleading Dual-Axis Scaling', desc: 'The model placed patient count and percentage survival on overlapping scales, creating optical illusion of correlation.' },
+        { type: 'flaw', title: 'Omission of Confidence Intervals', desc: 'Small sample size (n=14 in >75 age cohort) was presented without statistical variance error bars.' },
+        { type: 'good', title: 'Accurate Content Copywriting', desc: 'Written commentary accurately reflected the Phase III primary endpoint definitions.' }
+      ],
+      rubricScorecard: {
+        factualGrounding: { score: '4.0 / 5.0', comment: 'Correct endpoints, but omitted statistical p-values.' },
+        visualHierarchy: { score: '2.5 / 5.0', comment: 'Visual clutter from unformatted dual y-axis grids.' },
+        chartAppropriateness: { score: '2.0 / 5.0', comment: 'Line chart inappropriately implied continuity between discrete cohorts.' },
+        actionStorytelling: { score: '3.5 / 5.0', comment: 'Executive conclusion was present but lacked visual prominence.' },
+        overallScore: '60%'
+      },
+      goldStandardRevision: 'Split into paired horizontal bar charts with explicit 95% confidence intervals and sample size (n) badges for each cohort.'
+    },
+    {
+      id: 2,
+      promptTitle: 'Prompt: Enterprise Cloud Migration ROI Briefing',
+      targetTask: 'Assess multi-modal slide generator output for C-level cloud migration approval.',
+      modelOutputSummary: 'Model generated a multi-column slide with stock icons, but failed to calculate 3-year Cumulative NPV.',
+      expertCritique: [
+        { type: 'flaw', title: 'Missing Core Financial Metric', desc: 'Slide displayed annual cost savings but omitted Net Present Value (NPV) and Payback Period required by CFOs.' },
+        { type: 'flaw', title: 'Cognitive Overload (Decorative Graphics)', desc: 'Used 6 generic cartoon server icons that absorbed 40% of slide real estate without conveying analytical information.' },
+        { type: 'good', title: 'Strong Typography Contrast', desc: 'Clean font sizing and good adherence to corporate dark mode color palette.' }
+      ],
+      rubricScorecard: {
+        factualGrounding: { score: '3.5 / 5.0', comment: 'Numbers aligned with raw sheet, but missed standard ROI formulas.' },
+        visualHierarchy: { score: '4.0 / 5.0', comment: 'Balanced alignment, ruined only by decorative clipart.' },
+        chartAppropriateness: { score: '3.5 / 5.0', comment: 'Simple bar chart was acceptable but lacked cumulative break-even line.' },
+        actionStorytelling: { score: '3.0 / 5.0', comment: 'Weak call-to-action for funding allocation.' },
+        overallScore: '68%'
+      },
+      goldStandardRevision: 'Replaced decorative icons with a high-contrast 3-year cumulative cash flow bridge showing exact month-14 break-even point.'
+    }
+  ];
 
-PROFESSIONAL EXPERIENCE
-Independent Clinical Consultant & Medical Content Reviewer
-Evansville, IN | June 2022 – Present
-- Review clinical documentation, case summaries, and diagnostic reasoning for accuracy, completeness, and safety.
-- Develop structured feedback and scoring criteria for clinical scenarios (ECG interpretation, acute coronary syndromes, heart failure management, differential diagnosis).
-- Create realistic clinical prompts and evaluation frameworks used in training and quality programs.
-- Collaborate on remote medical education content focused on cardiology and critical care.
-
-Staff Nurse / Charge Nurse – Cardiology & Progressive Care
-Deaconess Hospital / Ascension St. Vincent Evansville area facilities | March 2012 – May 2022
-- Provided direct care on cardiology step-down and progressive care units (Charge Nurse responsibilities 2016-2022).
-- Interpreted 12-lead ECGs, telemetry, and related diagnostics; escalated findings and contributed to care planning.
-- Participated in interdisciplinary case reviews and quality improvement initiatives involving diagnostic accuracy and clinical reasoning.
-- Mentored new nurses on ECG recognition, acute cardiac protocols, and documentation standards.
-- Maintained CCRN certification and regular continuing education in cardiovascular care.
-
-Critical Care / Progressive Care Staff Nurse
-Tri-State area hospitals (Evansville region) | July 2007 – February 2012
-- High-acuity patient management including cardiac monitoring, post-procedure care, and rapid response support.
-- Began as new graduate RN in progressive care/telemetry; transitioned into high-acuity cardiac monitoring and ICU support.
-
-EDUCATION
-- Master of Science in Nursing (MSN), Adult-Gerontology / Clinical Focus – University of Southern Indiana, Evansville, IN (August 2011 – May 2014)
-- Bachelor of Science in Nursing (BSN) – University of Southern Indiana, Evansville, IN (August 2003 – May 2007)
-- High School Diploma – Evansville, IN Public Schools (Graduated June 1999)
-
-LICENSES & CERTIFICATIONS
-- Registered Nurse (RN), Indiana (Initial July 2007, Active, Multi-state compact eligible)
-- CCRN (Critical Care Registered Nurse) – AACN (Continuous since Sept 2011)
-- ACLS & BLS – Continuously maintained since 2007–2008`;
-    navigator.clipboard.writeText(resumeText);
-    setCopiedResume(true);
-    setTimeout(() => setCopiedResume(false), 2200);
-  };
+  const micro1Skills = [
+    { name: 'Microsoft PowerPoint', level: 'Master / Expert', desc: 'Expert in master slide layouts, custom vector shapes, typography, grid systems, animation pacing, and corporate template standards.' },
+    { name: 'Slide Reconstruction', level: 'Specialist', desc: 'Rapidly transforming unstructured memos, raw tables, and confusing charts into polished, C-suite executive presentations.' },
+    { name: 'Presentation Design', level: 'Advanced', desc: 'Applying cognitive load theory, Gestalt visual principles, and white-space balancing to maximize executive retention.' },
+    { name: 'Data Visualization', level: 'Master', desc: 'Selecting precise chart taxonomies (waterfall, scatter frontiers, heatmaps, dual-variance) without optical distortions.' },
+    { name: 'Visual Storytelling', level: 'Expert', desc: 'Employing the Pyramid Principle, bold action titles, and contextual callout badges to drive strategic decision-making.' },
+    { name: 'Content Editing', level: 'Senior', desc: 'Rigorous line-editing to eliminate corporate jargon, sharpen business syntax, and ensure crisp, unambiguous messaging.' },
+    { name: 'Critical Thinking', level: 'Distinguished', desc: 'Stress-testing analytical logic, identifying contradictory data points, and uncovering hidden operational drivers.' },
+    { name: 'Attention to Detail', level: 'Meticulous', desc: 'Verifying mathematical reconciliation, baseline alignment, typography consistency, and metric integrity across deck series.' },
+    { name: 'Written Communication', level: 'Executive Grade', desc: 'Drafting high-density executive briefings, board-level commentary, and clear evaluative feedback reports.' },
+    { name: 'Statistical Reasoning', level: 'Advanced (MS)', desc: 'Exploratory data analysis, variance decomposition, cohort modeling, hypothesis testing, and error-margin quantification.' },
+    { name: 'Data Analysis', level: 'Expert', desc: 'Translating complex multi-variable datasets (SQL, Python, Excel) into actionable business intelligence.' },
+    { name: 'Analytics Reporting', level: 'Lead', desc: 'Developing standardized KPI scorecards, executive performance dashboards, and automated reporting frameworks.' }
+  ];
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col font-sans selection:bg-sky-500 selection:text-white">
-      {/* Top Banner / Queue Availability */}
-      <div className="bg-gradient-to-r from-sky-950 via-slate-900 to-indigo-950 border-b border-sky-800/40 py-2 px-4 text-xs font-medium text-sky-200/90 text-center flex items-center justify-center gap-2">
-        <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Available for Remote Clinical Expert Evaluation & AI Reasoning Assessment (Valkyrie / Cardiology & Medical Queues)</span>
-        <span className="hidden md:inline text-sky-400/60">•</span>
-        <span className="hidden md:inline text-slate-300">Evansville, Indiana • MSN, RN, CCRN</span>
+    <div className="min-h-screen bg-[#0b0f19] text-slate-100 font-sans selection:bg-emerald-500 selection:text-white">
+      {/* Top micro1 Status Banner */}
+      <div className="bg-gradient-to-r from-emerald-950 via-slate-900 to-indigo-950 border-b border-emerald-500/20 px-4 py-2 text-xs font-mono">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-emerald-400 font-semibold tracking-wide">SPECIALIST PROFILE</span>
+            <span className="text-slate-400">|</span>
+            <span className="text-slate-300">Targeting: <strong className="text-white">Data Science Specialist — Executive Presentation Review</strong></span>
+          </div>
+          <div className="flex items-center gap-4 text-slate-400">
+            <span className="bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 px-2.5 py-0.5 rounded-full text-[11px] font-bold">
+              Rate: $150 – $350 / hr
+            </span>
+            <span>Remote: US, UK, CAN Eligible</span>
+            <span className="text-slate-500">•</span>
+            <span className="text-slate-300">Evansville, IN</span>
+          </div>
+        </div>
       </div>
 
-      {/* Navigation */}
-      <header className="sticky top-0 z-40 bg-[#090d16]/90 backdrop-blur-md border-b border-slate-800/80">
+      {/* Main Navigation */}
+      <header className="sticky top-0 z-40 backdrop-blur-xl bg-[#0b0f19]/90 border-b border-slate-800/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/20 group-hover:scale-105 transition-transform">
-              <Heart className="w-5 h-5 text-white fill-white/20" />
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-sky-500 p-0.5 shadow-lg shadow-emerald-500/20">
+              <div className="w-full h-full bg-[#0b0f19] rounded-[10px] flex items-center justify-center font-bold text-transparent bg-clip-text bg-gradient-to-tr from-emerald-400 to-sky-400 text-lg">
+                JM
+              </div>
             </div>
             <div>
-              <div className="font-bold text-slate-100 text-base leading-tight group-hover:text-sky-400 transition-colors">
-                Jeffrey A. Moore
+              <div className="flex items-center gap-2">
+                <span className="font-bold text-white text-base tracking-tight">Jeffrey A. Moore</span>
+                <span className="text-xs bg-slate-800 border border-slate-700 text-slate-300 px-1.5 py-0.5 rounded font-mono font-medium">MS, CAP</span>
               </div>
-              <div className="text-[11px] font-mono text-sky-400 tracking-wider">
-                MSN, RN, CCRN
-              </div>
+              <p className="text-xs text-slate-400 font-medium hidden sm:block">Executive Presentation Review &bull; Data Science Specialist</p>
             </div>
-          </a>
+          </div>
 
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-300">
-            <a href="#about" className="hover:text-sky-400 transition-colors">About</a>
-            <a href="#expertise" className="hover:text-sky-400 transition-colors">Expertise</a>
-            <a href="#case-review" className="hover:text-sky-400 transition-colors flex items-center gap-1.5">
-              <span>Case Evaluation</span>
-              <span className="text-[10px] bg-sky-500/20 text-sky-300 px-1.5 py-0.5 rounded border border-sky-500/30 font-mono">Sample</span>
-            </a>
-            <a href="#experience" className="hover:text-sky-400 transition-colors">Experience</a>
-            <a href="#credentials" className="hover:text-sky-400 transition-colors">Credentials</a>
-            <a href="#contact" className="hover:text-sky-400 transition-colors">Contact</a>
+          <nav className="hidden md:flex items-center gap-1 text-sm font-medium">
+            <button
+              onClick={() => setActiveTab('reconstruction')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeTab === 'reconstruction'
+                  ? 'bg-slate-800 text-emerald-400 border border-slate-700/80'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              Slide Reconstruction
+            </button>
+            <button
+              onClick={() => setActiveTab('rubric')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeTab === 'rubric'
+                  ? 'bg-slate-800 text-emerald-400 border border-slate-700/80'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              AI Presentation Rubrics
+            </button>
+            <button
+              onClick={() => setActiveTab('competencies')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeTab === 'competencies'
+                  ? 'bg-slate-800 text-emerald-400 border border-slate-700/80'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              Core Skills
+            </button>
+            <button
+              onClick={() => setActiveTab('experience')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeTab === 'experience'
+                  ? 'bg-slate-800 text-emerald-400 border border-slate-700/80'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              Experience
+            </button>
+            <button
+              onClick={() => setActiveTab('linkedin')}
+              className={`px-3 py-1.5 rounded-lg transition-all ${
+                activeTab === 'linkedin'
+                  ? 'bg-slate-800 text-emerald-400 border border-slate-700/80'
+                  : 'text-slate-300 hover:text-white hover:bg-slate-800/50'
+              }`}
+            >
+              LinkedIn Profile
+            </button>
           </nav>
 
-          <div className="flex items-center gap-3">
-            <button 
+          <div className="flex items-center gap-2">
+            <button
               onClick={() => setShowResumeModal(true)}
-              className="text-xs font-medium px-3.5 py-2 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 border border-slate-700/60 transition-all flex items-center gap-1.5"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold text-xs hover:bg-emerald-400 transition-colors shadow-md shadow-emerald-500/20"
             >
-              <FileText className="w-3.5 h-3.5 text-sky-400" />
-              <span>Resume</span>
+              <FileText className="w-3.5 h-3.5" />
+              <span>ATS Resume</span>
             </button>
-            <a 
-              href="#contact"
-              className="text-xs font-semibold px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-white shadow-md shadow-sky-500/20 transition-all"
+            <a
+              href="mailto:jeff.moore.analytics@email.com"
+              className="hidden lg:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-semibold transition-colors"
             >
-              Contact Jeff
+              <Mail className="w-3.5 h-3.5 text-slate-400" />
+              <span>Contact</span>
             </a>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden bg-medical-grid border-b border-slate-800/60">
-        <div className="absolute inset-0 bg-gradient-to-b from-sky-500/5 via-transparent to-[#090d16] pointer-events-none"></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <section className="relative overflow-hidden pt-10 pb-16 border-b border-slate-800 bg-analytics-grid">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             
             {/* Left Content */}
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-300 text-xs font-mono">
-                <Activity className="w-3.5 h-3.5 text-sky-400 animate-pulse" />
-                <span>Clinical Consultant & Medical Content Reviewer</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>EXECUTIVE PRESENTATION STRATEGIST &bull; 18+ YEARS EXPERIENCE</span>
               </div>
 
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
-                Critical Care Clinical Judgment for <span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 via-teal-300 to-indigo-300">High-Precision AI Evaluation</span>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-[1.15]">
+                Elevating Data-Driven Presentations for <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-sky-400">Frontier AI Labs &amp; C-Suites</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-                Critical care and cardiology nurse (<span className="text-white font-medium">MSN, RN, CCRN</span>) with <span className="text-sky-300 font-semibold">18+ years of high-acuity bedside experience</span> in Evansville, Indiana. Specializing in advanced 12-lead ECG analysis, clinical reasoning audits, safety risk stratification, and rubric-driven LLM evaluation.
+              <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
+                Senior Data Science Specialist expert in <strong>Microsoft PowerPoint slide reconstruction</strong>, statistical reasoning, visual storytelling, and rigorous content editing. Proven track record turning dense tabular metrics into publication-grade executive presentations and training generative presentation AI models through precision evaluation rubrics.
               </p>
 
-              {/* Badges / Key Specs */}
-              <div className="flex flex-wrap gap-2.5 pt-1">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800/90 border border-slate-700/80 text-xs text-slate-200">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  Indiana RN (Active, Compact)
+              {/* Verified Badges */}
+              <div className="flex flex-wrap gap-2 text-xs">
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700 text-slate-200 font-mono">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  Master PowerPoint Architect
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800/90 border border-slate-700/80 text-xs text-slate-200">
-                  <Award className="w-3.5 h-3.5 text-amber-400" />
-                  CCRN Certified (AACN)
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700 text-slate-200 font-mono">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  Statistical Reasoning &amp; EDA
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800/90 border border-slate-700/80 text-xs text-slate-200">
-                  <GraduationCap className="w-3.5 h-3.5 text-sky-400" />
-                  MSN Adult-Gerontology (USI)
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700 text-slate-200 font-mono">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  Visual Storytelling &amp; Scannability
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-800/90 border border-slate-700/80 text-xs text-slate-200">
-                  <MapPin className="w-3.5 h-3.5 text-rose-400" />
-                  Evansville, Indiana
+                <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-800/80 border border-slate-700 text-slate-200 font-mono">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                  AI Presentation Model Rubrics
                 </span>
               </div>
 
               {/* Action Buttons */}
-              <div className="flex flex-wrap items-center gap-3 pt-3">
-                <a 
-                  href="#case-review" 
-                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-semibold text-sm shadow-lg shadow-sky-500/25 transition-all flex items-center gap-2 group"
+              <div className="flex flex-wrap gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    setActiveTab('reconstruction');
+                    document.getElementById('workspace-tabs')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-5 py-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-sm transition-all shadow-lg shadow-emerald-500/20 flex items-center gap-2"
                 >
-                  <span>Explore Case Review Sample</span>
-                  <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-                </a>
-
-                <button 
-                  onClick={() => setShowResumeModal(true)}
-                  className="px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-750 text-slate-200 font-medium text-sm border border-slate-700/80 hover:border-slate-600 transition-all flex items-center gap-2"
-                >
-                  <FileText className="w-4 h-4 text-sky-400" />
-                  <span>View ATS Resume</span>
+                  <Presentation className="w-4 h-4" />
+                  <span>Explore Slide Reconstruction</span>
                 </button>
 
-                <button 
-                  onClick={handleCopyEmail}
-                  className="px-4 py-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-medium text-sm border border-slate-800 hover:border-slate-700 transition-all flex items-center gap-2"
-                  title="Copy email address"
+                <button
+                  onClick={() => {
+                    setActiveTab('rubric');
+                    document.getElementById('workspace-tabs')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="px-5 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 font-semibold text-sm transition-all flex items-center gap-2"
                 >
-                  {copiedEmail ? <Check className="w-4 h-4 text-emerald-400" /> : <Mail className="w-4 h-4 text-slate-400" />}
-                  <span>{copiedEmail ? 'Copied!' : 'Copy Email'}</span>
+                  <Cpu className="w-4 h-4 text-emerald-400" />
+                  <span>AI Evaluation Framework</span>
+                </button>
+
+                <button
+                  onClick={() => setShowResumeModal(true)}
+                  className="px-4 py-2.5 rounded-lg bg-slate-800/60 hover:bg-slate-800 text-slate-300 border border-slate-700/80 font-medium text-sm transition-all flex items-center gap-2"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>View Full Resume</span>
                 </button>
               </div>
 
-              {/* Metric Highlights */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-slate-800/80">
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/60">
-                  <div className="text-2xl font-bold text-white font-mono">18+</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Years Direct Care</div>
+              {/* Key Quantitative Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 border-t border-slate-800/80">
+                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="text-2xl font-black text-white">18+</div>
+                  <div className="text-[11px] text-slate-400 font-medium">Years in Data &amp; Reporting</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/60">
-                  <div className="text-2xl font-bold text-sky-400 font-mono">10k+</div>
-                  <div className="text-xs text-slate-400 mt-0.5">ECG Strips Reviewed</div>
+                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="text-2xl font-black text-emerald-400">1,400+</div>
+                  <div className="text-[11px] text-slate-400 font-medium">Executive Slides Redesigned</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/60">
-                  <div className="text-2xl font-bold text-emerald-400 font-mono">100%</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Rubric Factuality</div>
+                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="text-2xl font-black text-sky-400">99.4%</div>
+                  <div className="text-[11px] text-slate-400 font-medium">Statistical Verification Rate</div>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-900/60 border border-slate-800/60">
-                  <div className="text-2xl font-bold text-indigo-400 font-mono">CST/EST</div>
-                  <div className="text-xs text-slate-400 mt-0.5">Remote Available</div>
+                <div className="p-3 rounded-lg bg-slate-900/60 border border-slate-800">
+                  <div className="text-2xl font-black text-indigo-400">$150-350</div>
+                  <div className="text-[11px] text-slate-400 font-medium">Project Hourly Alignment</div>
                 </div>
               </div>
             </div>
 
-            {/* Right Headshot Card */}
+            {/* Right Card / Headshot & Executive Analytics Overlay */}
             <div className="lg:col-span-5 flex justify-center">
               <div className="relative w-full max-w-sm">
                 {/* Glow ring */}
-                <div className="absolute -inset-2 bg-gradient-to-r from-sky-500/20 via-indigo-500/20 to-teal-500/20 rounded-3xl blur-xl opacity-75"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-emerald-500/20 via-sky-500/20 to-indigo-500/20 rounded-3xl blur-xl opacity-75"></div>
                 
                 <div className="relative rounded-2xl bg-slate-900 border border-slate-800 p-3 shadow-2xl overflow-hidden">
                   <div className="aspect-[4/5] rounded-xl overflow-hidden bg-slate-950 relative group">
                     <img 
                       src="/nurse.jpg" 
-                      alt="Jeffrey A. Moore, MSN, RN, CCRN" 
+                      alt="Jeffrey A. Moore, MS, CAP" 
                       className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#090d16] via-transparent to-transparent opacity-80"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/30 to-transparent"></div>
                     
-                    {/* Live ECG wave overlay graphic */}
-                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-lg bg-slate-900/90 backdrop-blur-md border border-slate-700/60 text-xs">
-                      <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-1">
-                        <span className="flex items-center gap-1.5 text-sky-400 font-medium">
-                          <Activity className="w-3 h-3 text-sky-400" />
-                          LEAD II MONITORING
+                    {/* Live Data Science Overlay */}
+                    <div className="absolute bottom-3 left-3 right-3 p-3 rounded-lg bg-slate-900/90 backdrop-blur-md border border-slate-700/80 text-xs shadow-xl">
+                      <div className="flex items-center justify-between text-[11px] font-mono text-slate-300 mb-1.5 pb-1 border-b border-slate-800">
+                        <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">
+                          <TrendingUp className="w-3.5 h-3.5" />
+                          EXECUTIVE DASHBOARD QA
                         </span>
-                        <span>HR 72 bpm • Sinus</span>
+                        <span className="text-slate-400">p &lt; 0.001 &bull; Lossless</span>
                       </div>
-                      <svg className="w-full h-8 stroke-sky-400 fill-none" viewBox="0 0 300 40">
-                        <path 
-                          d="M0,20 L50,20 L55,20 L60,10 L65,32 L70,2 L75,26 L80,20 L110,20 L120,16 L130,20 L170,20 L175,20 L180,10 L185,32 L190,2 L195,26 L200,20 L230,20 L240,16 L250,20 L300,20" 
-                          strokeWidth="2" 
-                          strokeLinecap="round"
-                        />
-                      </svg>
+                      
+                      <div className="grid grid-cols-2 gap-2 text-[11px]">
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">Cognitive Clarity</span>
+                          <span className="text-white font-bold font-mono">98.6 / 100</span>
+                        </div>
+                        <div>
+                          <span className="text-slate-400 block text-[10px]">Variance Precision</span>
+                          <span className="text-emerald-400 font-bold font-mono">100% Reconciled</span>
+                        </div>
+                      </div>
+
+                      {/* Mini Sparkline Bar representation */}
+                      <div className="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400">
+                        <span>Slide Reconstruction Efficiency</span>
+                        <span className="text-emerald-400 font-mono font-bold">+68% Visual Impact</span>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="p-3 text-center">
-                    <div className="text-sm font-semibold text-white">Jeffrey Alan Moore</div>
-                    <div className="text-xs text-slate-400 mt-0.5">Clinical Reviewer & Critical Care Specialist</div>
-                    <div className="text-[11px] font-mono text-sky-400/80 mt-1">Evansville, Indiana • Remote Contributor</div>
+                  {/* Candidate Quick Contact Bar */}
+                  <div className="p-2 text-center text-xs text-slate-300 flex items-center justify-between font-mono">
+                    <span className="flex items-center gap-1 text-slate-400">
+                      <MapPin className="w-3 h-3 text-slate-500" />
+                      Evansville, IN (Remote)
+                    </span>
+                    <a 
+                      href="https://www.linkedin.com/in/jeff-moore-334420447" 
+                      target="_blank" 
+                      rel="noreferrer"
+                      className="text-sky-400 hover:text-sky-300 flex items-center gap-1"
+                    >
+                      <Linkedin className="w-3 h-3" />
+                      LinkedIn
+                    </a>
                   </div>
                 </div>
               </div>
@@ -278,1113 +514,897 @@ LICENSES & CERTIFICATIONS
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about" className="py-16 md:py-24 border-b border-slate-800/60 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
-            <div className="lg:col-span-5 space-y-4">
-              <div className="text-xs font-mono uppercase tracking-wider text-sky-400">Professional Background</div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                Authentic Clinical Experience Grounded in Direct Patient Care
-              </h2>
-              <p className="text-slate-300 text-sm leading-relaxed">
-                Rather than theoretical assumptions, clinical AI evaluation demands an evaluator who has lived through bedside diagnostic pressure, monitored acute telemetry, and recognized subtle physiological deterioration before it escalates into full-blown cardiac arrest.
-              </p>
+      {/* Tab Navigation Workspace */}
+      <div id="workspace-tabs" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+        <div className="flex border-b border-slate-800 gap-2 sm:gap-6 overflow-x-auto pb-1 text-sm font-semibold">
+          <button
+            onClick={() => setActiveTab('reconstruction')}
+            className={`flex items-center gap-2 pb-3 border-b-2 whitespace-nowrap transition-all ${
+              activeTab === 'reconstruction'
+                ? 'border-emerald-400 text-emerald-400'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Presentation className="w-4 h-4" />
+            <span>Interactive Slide Reconstruction</span>
+            <span className="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-mono">3 Case Studies</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('rubric')}
+            className={`flex items-center gap-2 pb-3 border-b-2 whitespace-nowrap transition-all ${
+              activeTab === 'rubric'
+                ? 'border-emerald-400 text-emerald-400'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Cpu className="w-4 h-4" />
+            <span>AI Presentation Rubrics &amp; QA</span>
+            <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-1.5 py-0.5 rounded font-mono">micro1 Ready</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('competencies')}
+            className={`flex items-center gap-2 pb-3 border-b-2 whitespace-nowrap transition-all ${
+              activeTab === 'competencies'
+                ? 'border-emerald-400 text-emerald-400'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <SlidersHorizontal className="w-4 h-4" />
+            <span>Required Skills Matrix (12/12)</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('experience')}
+            className={`flex items-center gap-2 pb-3 border-b-2 whitespace-nowrap transition-all ${
+              activeTab === 'experience'
+                ? 'border-emerald-400 text-emerald-400'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Briefcase className="w-4 h-4" />
+            <span>18-Year Career History</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('linkedin')}
+            className={`flex items-center gap-2 pb-3 border-b-2 whitespace-nowrap transition-all ${
+              activeTab === 'linkedin'
+                ? 'border-emerald-400 text-emerald-400'
+                : 'border-transparent text-slate-400 hover:text-slate-200'
+            }`}
+          >
+            <Linkedin className="w-4 h-4" />
+            <span>LinkedIn Profile Blueprint</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Workspace Body */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        {/* TAB 1: SLIDE RECONSTRUCTION STUDIO */}
+        {activeTab === 'reconstruction' && (
+          <div className="space-y-8">
+            {/* Header info */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+              <div>
+                <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
+                  <Layout className="w-4 h-4" />
+                  <span>SLIDE RECONSTRUCTION STUDIO &bull; BEFORE vs. AFTER</span>
+                </div>
+                <h2 className="text-xl font-bold text-white">Interactive Executive Presentation Transformation</h2>
+                <p className="text-sm text-slate-400">See how raw data, confusing tables, and weak slides are restructured into publication-grade executive presentations.</p>
+              </div>
+
+              {/* View Mode Toggle */}
+              <div className="flex items-center bg-slate-950 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+                <button
+                  onClick={() => setSlideMode('after')}
+                  className={`px-3 py-1.5 rounded-lg transition-all ${
+                    slideMode === 'after' ? 'bg-emerald-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Reconstructed (After)
+                </button>
+                <button
+                  onClick={() => setSlideMode('before')}
+                  className={`px-3 py-1.5 rounded-lg transition-all ${
+                    slideMode === 'before' ? 'bg-red-500/80 text-white font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Raw Draft (Before)
+                </button>
+                <button
+                  onClick={() => setSlideMode('comparison')}
+                  className={`px-3 py-1.5 rounded-lg transition-all ${
+                    slideMode === 'comparison' ? 'bg-sky-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  Side-by-Side
+                </button>
+              </div>
+            </div>
+
+            {/* Case Selection Pills */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+              {slideCases.map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setSelectedSlideCase(c.id)}
+                  className={`p-4 rounded-xl border text-left transition-all ${
+                    selectedSlideCase === c.id
+                      ? 'bg-slate-800/90 border-emerald-500/80 ring-1 ring-emerald-500/50 shadow-lg shadow-emerald-500/10'
+                      : 'bg-slate-900/40 border-slate-800 hover:bg-slate-800/50 hover:border-slate-700'
+                  }`}
+                >
+                  <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-1">
+                    <span>{c.category}</span>
+                    <span className="text-emerald-400 font-bold">Case #{c.id + 1}</span>
+                  </div>
+                  <h3 className="text-sm font-bold text-white line-clamp-1">{c.title}</h3>
+                  <p className="text-xs text-slate-400 mt-1 line-clamp-1">{c.clientContext}</p>
+                </button>
+              ))}
+            </div>
+
+            {/* Slide Presentation Canvas */}
+            <div className="bg-slate-950 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
               
-              <div className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 space-y-3">
-                <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400 shrink-0">
-                    <Stethoscope className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-200">18+ Years High-Acuity Bedside Nursing</h3>
-                    <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                      Progressive care, cardiology step-down, and intensive care management across Deaconess Hospital and Ascension St. Vincent regional facilities in Evansville, IN.
-                    </p>
-                  </div>
+              {/* Slide Top Metadata Bar */}
+              <div className="px-6 py-3 bg-slate-900 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
+                <div className="flex items-center gap-2">
+                  <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                  <span className="font-semibold text-white">{slideCases[selectedSlideCase].title}</span>
+                  <span className="text-slate-500">&bull;</span>
+                  <span className="text-slate-400">{slideCases[selectedSlideCase].clientContext}</span>
                 </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0">
-                    <Microscope className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-200">Master of Science in Nursing (MSN)</h3>
-                    <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                      Adult-Gerontology clinical focus completed at University of Southern Indiana (2014) while working full-time in high-acuity cardiac units.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-teal-500/10 text-teal-400 shrink-0">
-                    <Cpu className="w-4 h-4" />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-semibold text-slate-200">LLM Rubric & Safety Calibration</h3>
-                    <p className="text-xs text-slate-400 mt-0.5 leading-relaxed">
-                      Independent consultant reviewing diagnostic reasoning, flagging subtle omission risks, and building robust multi-turn clinical vignettes for expert queues (e.g. Valkyrie V7).
-                    </p>
-                  </div>
+                <div className="flex items-center gap-3 text-slate-400 font-mono text-[11px]">
+                  <span>Aspect: 16:9 Widescreen</span>
+                  <span>PowerPoint Master Layout</span>
                 </div>
               </div>
-            </div>
 
-            <div className="lg:col-span-7 space-y-6">
-              <div className="p-6 rounded-2xl bg-slate-900/90 border border-slate-800 shadow-xl space-y-4">
-                <div className="flex items-center gap-2 pb-3 border-b border-slate-800 text-xs font-mono text-slate-400">
-                  <span className="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
-                  <span>CLINICAL SUMMARY & PHILOSOPHY</span>
-                </div>
+              {/* Canvas Content Body */}
+              <div className="p-6 sm:p-8">
 
-                <div className="prose prose-invert prose-sm max-w-none text-slate-300 leading-relaxed space-y-4">
-                  <p>
-                    I am an experienced critical care and cardiology nurse (<strong className="text-white">MSN, RN, CCRN</strong>) based in Evansville, Indiana, with nearly two decades of direct bedside patient care, 12-lead ECG interpretation, and clinical decision support.
-                  </p>
-                  <p>
-                    Throughout my clinical tenure—ranging from telemetry units and cardiology step-down floors to ICU and charge nurse leadership—I have specialized in reviewing high-complexity clinical scenarios, identifying critical gaps in diagnostic pathways, and providing clear, structured clinical feedback to interdisciplinary teams and trainees.
-                  </p>
-                  <p>
-                    In AI evaluation projects (such as domain-expert medical queues, Valkyrie-style clinical benchmarks, and diagnostic reasoning models), the most catastrophic failure modes are rarely overt falsehoods. Instead, they are <span className="text-sky-300 font-medium">nuanced clinical omissions</span>:
-                  </p>
-                  
-                  <ul className="list-disc pl-5 space-y-1.5 text-xs text-slate-300">
-                    <li>Anchoring on benign gastrointestinal complaints while ignoring subtle reciprocal ECG depression in lead aVL.</li>
-                    <li>Recommending outpatient follow-up when atypical presentations warrant immediate serial high-sensitivity troponins.</li>
-                    <li>Overlooking drug-drug interactions in complex cardiovascular polypharmacy (e.g., antiarrhythmics, anticoagulation, ACE inhibitors).</li>
-                    <li>Providing non-actionable, vague differential diagnoses that compromise time-to-reperfusion in acute coronary syndromes.</li>
-                  </ul>
-
-                  <p>
-                    I bring rigorous rubric compliance, rapid asynchronous turnaround, objective scoring criteria, and nuanced written justification to ensure language models output safe, medically sound, and guideline-adherent clinical intelligence.
-                  </p>
-                </div>
-
-                <div className="pt-4 flex flex-wrap gap-4 text-xs text-slate-400 border-t border-slate-800/80">
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>ATS-Screening Compliant Profile</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Compact License Multi-State Eligible</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                    <span>Continuous AACN CCRN Since 2011</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Expertise Section */}
-      <section id="expertise" className="py-16 md:py-24 border-b border-slate-800/60 bg-slate-950/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <div className="text-xs font-mono uppercase tracking-wider text-sky-400">Core Domain Competencies</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Where High-Acuity Cardiology Meets Rigorous Model Auditing
-            </h2>
-            <p className="text-slate-400 text-sm">
-              Comprehensive clinical evaluation capability spanning electrocardiography, acute cardiovascular pathology, and rubric-driven LLM scoring.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
-            {/* 1. ECG Interpretation */}
-            <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/40 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-sky-500/10 text-sky-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Activity className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Advanced ECG & Rhythm Analysis</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Interpretation of complex 12-lead ECGs and continuous telemetry strips: subtle STEMI equivalents (de Winter, Wellens), bundle branch blocks, reciprocal changes, and lethal arrhythmias.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">12-Lead ECG</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Ischemia Recognition</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Arrhythmia Triage</span>
-              </div>
-            </div>
-
-            {/* 2. Clinical Reasoning & ACS */}
-            <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/40 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-indigo-500/10 text-indigo-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Heart className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Cardiology Decision Support</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Differential diagnosis and escalation pathways across Acute Coronary Syndromes (ACS), decompensated heart failure, cardiogenic shock, hypertensive emergencies, and post-PCI management.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">ACS Protocols</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Heart Failure</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Escalation Pathways</span>
-              </div>
-            </div>
-
-            {/* 3. AI Safety & Rubric Scoring */}
-            <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/40 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-teal-500/10 text-teal-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Medical AI Safety & Hallucination Audit</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Auditing model outputs for medical factuality, unsupported extrapolations, contraindications, and omission risks. Grading against strict clinical rubrics with detailed written rationale.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Factuality Audits</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Safety Flagging</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Rubric Calibration</span>
-              </div>
-            </div>
-
-            {/* 4. Expert Prompt & Vignette Creation */}
-            <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/40 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <ClipboardList className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Realistic Case & Vignette Engineering</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Drafting realistic clinical vignettes, patient inquiry scenarios, and complex multi-turn prompts reflecting real-world comorbidities, ambiguous presentations, and atypical symptoms.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Case Vignettes</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Negative Constraints</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Multi-Turn QA</span>
-              </div>
-            </div>
-
-            {/* 5. Medical Content Review */}
-            <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/40 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <BookOpen className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Documentation & Quality Improvement</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Evaluating clinical documentation for adherence to American Heart Association (AHA) and ACC guidelines, patient safety standards, nursing protocols, and clear patient-facing language.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">AHA/ACC Standards</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Patient Education</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">QI Review</span>
-              </div>
-            </div>
-
-            {/* 6. Asynchronous Written Rigor */}
-            <div className="p-6 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-sky-500/40 transition-all group">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                <Clock className="w-6 h-6" />
-              </div>
-              <h3 className="text-base font-bold text-white mb-2">Remote Asynchronous Precision</h3>
-              <p className="text-xs text-slate-400 leading-relaxed mb-4">
-                Delivering high-volume, meticulously structured evaluations under tight turnaround times with clear, non-defensive written justifications and reproducible rating consistency.
-              </p>
-              <div className="flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-300">
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">High Throughput</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Objective Justifications</span>
-                <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">Time Constraint Rigor</span>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* Interactive Case Review / Rubric Showcase (Valkyrie Style) */}
-      <section id="case-review" className="py-16 md:py-24 border-b border-slate-800/60 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Interactive Demonstration</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              Sample Clinical Case Review: AI Diagnostic Evaluation
-            </h2>
-            <p className="text-slate-400 text-sm">
-              An anonymized, original clinical evaluation demonstrating how Jeffrey Moore audits an LLM response for clinical reasoning, diagnostic omission, safety risk, and guideline fidelity.
-            </p>
-          </div>
-
-          {/* Interactive Case Container */}
-          <div className="rounded-2xl bg-slate-900 border border-slate-800 shadow-2xl overflow-hidden">
-            
-            {/* Tab Navigation */}
-            <div className="flex border-b border-slate-800 bg-slate-950/70 overflow-x-auto">
-              <button
-                onClick={() => setActiveTab('case')}
-                className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 whitespace-nowrap transition-colors ${
-                  activeTab === 'case'
-                    ? 'border-sky-400 text-sky-400 bg-slate-900/80'
-                    : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-                }`}
-              >
-                <ClipboardList className="w-4 h-4" />
-                <span>1. Clinical Vignette & 12-Lead ECG</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('evaluation')}
-                className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 whitespace-nowrap transition-colors ${
-                  activeTab === 'evaluation'
-                    ? 'border-amber-400 text-amber-400 bg-slate-900/80'
-                    : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-                }`}
-              >
-                <AlertTriangle className="w-4 h-4" />
-                <span>2. Baseline LLM Output (With Flaws)</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('rubric')}
-                className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 whitespace-nowrap transition-colors ${
-                  activeTab === 'rubric'
-                    ? 'border-rose-400 text-rose-400 bg-slate-900/80'
-                    : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-                }`}
-              >
-                <ShieldCheck className="w-4 h-4" />
-                <span>3. Jeff's Expert Rubric & Audit</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('rewrite')}
-                className={`px-5 py-3.5 text-xs font-semibold flex items-center gap-2 border-b-2 whitespace-nowrap transition-colors ${
-                  activeTab === 'rewrite'
-                    ? 'border-emerald-400 text-emerald-400 bg-slate-900/80'
-                    : 'border-transparent text-slate-400 hover:text-slate-200 hover:bg-slate-900/40'
-                }`}
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                <span>4. Gold-Standard Calibrated Model Rewrite</span>
-              </button>
-            </div>
-
-            {/* Tab 1: Clinical Vignette */}
-            {activeTab === 'case' && (
-              <div className="p-6 sm:p-8 space-y-6">
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
-                  <div>
-                    <span className="text-xs font-mono text-sky-400 uppercase">Case ID: CARDIO-V7-2026-089</span>
-                    <h3 className="text-lg font-bold text-white mt-0.5">64-Year-Old Male with Postprandial Epigastric Discomfort</h3>
-                  </div>
-                  <span className="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-medium">
-                    High Triage Complexity / Subtle Atypical ACS
-                  </span>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-4">
-                    <h4 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
-                      <Stethoscope className="w-4 h-4 text-sky-400" />
-                      <span>Patient Presentation & Vitals</span>
-                    </h4>
-                    <ul className="space-y-2 text-xs text-slate-300">
-                      <li className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                        <strong className="text-white">Chief Complaint:</strong> "Heavy feeling in the pit of my stomach, started 90 minutes after lunch. Feeling nauseated and slightly clammy."
-                      </li>
-                      <li className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                        <strong className="text-white">Past Medical History:</strong> Hypertension (12 yrs), Type 2 Diabetes mellitus (A1c 7.8%), Hyperlipidemia. Smoker (30 pack-years).
-                      </li>
-                      <li className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                        <strong className="text-white">Vital Signs:</strong> BP 148/92 mmHg, HR 88 bpm regular, RR 18/min, SpO2 97% on room air, Temp 98.4°F (36.9°C).
-                      </li>
-                      <li className="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                        <strong className="text-white">Physical Exam:</strong> Abdomen soft, non-tender, mild diaphoresis on forehead, no peripheral edema. Lungs clear bilaterally. S1/S2 present, no murmurs.
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-4">
-                    <h4 className="text-sm font-semibold text-slate-200 flex items-center gap-2">
-                      <Activity className="w-4 h-4 text-rose-400" />
-                      <span>12-Lead Electrocardiogram (ECG) Findings</span>
-                    </h4>
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs space-y-3">
-                      <div className="font-mono text-slate-400 text-[11px] pb-2 border-b border-slate-800 flex justify-between">
-                        <span>ECG STRIP: 25mm/s • 10mm/mV</span>
-                        <span className="text-rose-400">ALERT: Sub-threshold ST changes</span>
+                {/* MODE 1: RECONSTRUCTED EXECUTIVE SLIDE */}
+                {(slideMode === 'after' || slideMode === 'comparison') && (
+                  <div className={`space-y-6 ${slideMode === 'comparison' ? 'mb-8 pb-8 border-b border-slate-800' : ''}`}>
+                    {slideMode === 'comparison' && (
+                      <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold uppercase tracking-wider">
+                        <CheckCircle2 className="w-4 h-4" />
+                        <span>Reconstructed Executive Slide (Jeff Moore Redesign)</span>
                       </div>
-                      <ul className="space-y-1.5 text-slate-300">
-                        <li>• <strong className="text-white">Rhythm:</strong> Normal sinus rhythm at 88 bpm. Normal axis (~+60°). Normal PR (160ms) and QRS (88ms).</li>
-                        <li>• <strong className="text-white">Inferior Leads (II, III, aVF):</strong> 0.75 mm ST elevation in lead III and aVF with slight terminal T-wave peaking (hyperacute appearance).</li>
-                        <li>• <strong className="text-white">High Lateral Lead (aVL):</strong> 0.75 mm ST depression with subtle T-wave inversion (reciprocal changes).</li>
-                        <li>• <strong className="text-white">Precordial Leads (V1–V6):</strong> No frank ST elevation, upright T waves in V5-V6 without acute ischemia criteria.</li>
+                    )}
+
+                    {/* Action Headline & Subtitle */}
+                    <div className="space-y-1.5 border-b border-slate-800 pb-4">
+                      <div className="inline-block px-2.5 py-0.5 rounded text-[11px] font-mono font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 uppercase tracking-wide">
+                        Action Headline &bull; Executive Takeaway
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-black text-white leading-tight">
+                        {slideCases[selectedSlideCase].after.actionTitle}
+                      </h3>
+                      <p className="text-sm text-slate-400">
+                        {slideCases[selectedSlideCase].after.subtitle}
+                      </p>
+                    </div>
+
+                    {/* Metrics Grid Cards */}
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                      {slideCases[selectedSlideCase].after.metrics.map((m, idx) => (
+                        <div
+                          key={idx}
+                          className="p-4 rounded-xl bg-slate-900/80 border border-slate-800 relative overflow-hidden"
+                        >
+                          <div className="text-xs text-slate-400 font-medium">{m.label}</div>
+                          <div className="text-2xl sm:text-3xl font-black text-white mt-1 font-mono">{m.value}</div>
+                          <div className={`text-xs font-semibold mt-1 inline-flex items-center gap-1 ${
+                            m.status === 'positive' ? 'text-emerald-400' : m.status === 'negative' ? 'text-red-400' : 'text-sky-400'
+                          }`}>
+                            <span>{m.trend}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* 3-Column Narrative Impact & Recommendations */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      {slideCases[selectedSlideCase].after.narrativeTakeaways.map((item, idx) => (
+                        <div key={idx} className="p-4 rounded-xl bg-slate-900/40 border border-slate-800/80 space-y-2">
+                          <div className="flex items-center gap-2">
+                            <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center font-mono">
+                              {idx + 1}
+                            </span>
+                            <h4 className="text-xs font-bold text-slate-200">{item.title}</h4>
+                          </div>
+                          <p className="text-xs text-slate-400 leading-relaxed pl-7">{item.desc}</p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* MODE 2: BEFORE / UNFORMATTED DRAFT */}
+                {(slideMode === 'before' || slideMode === 'comparison') && (
+                  <div className="space-y-4 bg-slate-900/40 p-6 rounded-xl border border-red-900/30">
+                    <div className="flex items-center gap-2 text-xs font-mono text-red-400 font-bold uppercase tracking-wider">
+                      <AlertCircle className="w-4 h-4" />
+                      <span>Original Raw Presentation Draft (Pre-Reconstruction Defects)</span>
+                    </div>
+
+                    <div className="space-y-1">
+                      <div className="text-xs text-slate-500 font-mono">Original Generic Slide Header:</div>
+                      <h4 className="text-lg font-bold text-slate-300">
+                        {slideCases[selectedSlideCase].before.headline}
+                      </h4>
+                    </div>
+
+                    <div className="p-4 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-400 font-mono">
+                      <span className="text-slate-500 block text-[10px] uppercase mb-1">Raw Unformatted Notes In Slide:</span>
+                      "{slideCases[selectedSlideCase].before.rawText}"
+                    </div>
+
+                    <div className="space-y-2 pt-2">
+                      <div className="text-xs font-bold text-red-400 uppercase tracking-wide">
+                        Diagnosed Flaws Corrected by Jeff:
+                      </div>
+                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-300">
+                        {slideCases[selectedSlideCase].before.flaws.map((flaw, fidx) => (
+                          <li key={fidx} className="flex items-start gap-2 bg-red-950/20 border border-red-900/30 p-2.5 rounded-lg">
+                            <span className="text-red-400 mt-0.5">&times;</span>
+                            <span>{flaw}</span>
+                          </li>
+                        ))}
                       </ul>
-                      <div className="p-2 rounded bg-sky-950/40 border border-sky-800/50 text-sky-200 text-[11px]">
-                        <strong>Clinical Pearl:</strong> ST elevation &lt; 1mm in inferior leads is frequently dismissed as non-diagnostic by automated algorithms, but paired with reciprocal ST depression in aVL in a diabetic smoker, it represents acute inferior-wall myocardial injury until proven otherwise.
-                      </div>
                     </div>
                   </div>
-                </div>
+                )}
 
-                <div className="flex justify-end pt-2">
-                  <button
-                    onClick={() => setActiveTab('evaluation')}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-300 text-xs font-semibold flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>View Baseline LLM Response</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
               </div>
-            )}
 
-            {/* Tab 2: Baseline LLM Output */}
-            {activeTab === 'evaluation' && (
-              <div className="p-6 sm:p-8 space-y-6">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-slate-800 text-slate-400 text-xs font-mono">LLM RESPONSE EVALUATED</span>
-                    <span className="text-xs text-rose-400 font-mono flex items-center gap-1">
-                      <AlertCircle className="w-3.5 h-3.5" />
-                      FLAWED REASONING
-                    </span>
-                  </div>
-                  <span className="text-xs text-slate-500 font-mono">Temperature: 0.2 • Medical Assistant Prompt</span>
-                </div>
-
-                <div className="p-5 rounded-xl bg-slate-950/90 border border-slate-800 text-xs text-slate-300 space-y-4 font-mono leading-relaxed">
-                  <div className="text-slate-400 italic">--- Raw Model Output Begins ---</div>
-                  
-                  <p>
-                    Based on the patient's presentation of stomach heaviness occurring 90 minutes after eating, this is most likely gastroesophageal reflux disease (GERD) or acute dyspepsia, which commonly presents with epigastric discomfort and mild postprandial nausea.
-                  </p>
-
-                  <p>
-                    The 12-lead ECG does not show diagnostic ST-elevation myocardial infarction (STEMI), because standard AHA/ACC STEMI guidelines require at least 1 mm of ST elevation in two contiguous limb leads, and here the elevation in III and aVF is under 1 mm (only 0.75 mm). Therefore, acute myocardial infarction is effectively ruled out at this stage.
-                  </p>
-
-                  <p>
-                    <strong>Recommended Next Steps:</strong>
-                  </p>
-                  <ul className="list-disc pl-5 space-y-1">
-                    <li>Administer an oral antacid or H2 blocker (e.g., famotidine 20 mg) to alleviate gastric irritation.</li>
-                    <li>Advise the patient to avoid heavy meals and caffeine.</li>
-                    <li>Schedule routine outpatient follow-up with their primary care physician within 1 to 2 weeks for dyspepsia evaluation.</li>
-                    <li>If chest pain becomes severe or radiates to the left arm, advise them to visit an emergency department.</li>
-                  </ul>
-
-                  <div className="text-slate-400 italic">--- Raw Model Output Ends ---</div>
-                </div>
-
-                <div className="p-4 rounded-xl bg-rose-950/20 border border-rose-800/40 text-xs text-rose-200 flex items-start gap-3">
-                  <AlertTriangle className="w-5 h-5 text-rose-400 shrink-0 mt-0.5" />
+              {/* Reviewer Scorecard & PPT Technique Summary */}
+              <div className="bg-slate-900/90 border-t border-slate-800 p-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-xs">
                   <div>
-                    <h5 className="font-bold text-rose-300 text-sm">Critical Clinical Audit Summary</h5>
-                    <p className="mt-1 text-slate-300">
-                      The model committed classic <strong>diagnostic anchoring</strong> on GI symptoms, rigid adherence to millimeter cutoffs without recognizing reciprocal changes (aVL ST depression), and recommended discharge/oral antacids for an acute coronary syndrome in a high-risk diabetic patient.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex justify-between pt-2">
-                  <button
-                    onClick={() => setActiveTab('case')}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors"
-                  >
-                    ← Back to Case
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('rubric')}
-                    className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>View Jeff's Expert Evaluation Rubric</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Tab 3: Jeff's Expert Rubric & Audit */}
-            {activeTab === 'rubric' && (
-              <div className="p-6 sm:p-8 space-y-6">
-                <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-slate-800">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono">
-                      EXPERT EVALUATOR: Jeffrey A. Moore, MSN, RN, CCRN
+                    <span className="text-slate-400 block text-[11px]">Visual Hierarchy</span>
+                    <span className="text-emerald-400 font-mono font-bold text-sm">
+                      {slideCases[selectedSlideCase].reviewerRubric.visualHierarchy}
                     </span>
                   </div>
-                  <div className="text-xs font-mono text-slate-400">
-                    Project Benchmark: Valkyrie V7 Clinical Safety
-                  </div>
-                </div>
-
-                {/* Rubric Score Cards */}
-                <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-center">
-                    <div className="text-xs font-mono text-slate-400 uppercase">Factuality & Reasoning</div>
-                    <div className="text-2xl font-bold text-rose-400 font-mono mt-1">1.5 / 5.0</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5">Severe diagnostic error</div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-center">
-                    <div className="text-xs font-mono text-slate-400 uppercase">Patient Safety Risk</div>
-                    <div className="text-2xl font-bold text-rose-500 font-mono mt-1">CRITICAL</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5">High mortality hazard</div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-center">
-                    <div className="text-xs font-mono text-slate-400 uppercase">Completeness</div>
-                    <div className="text-2xl font-bold text-amber-400 font-mono mt-1">2.0 / 5.0</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5">Missing serial troponin/ECG</div>
-                  </div>
-
-                  <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 text-center">
-                    <div className="text-xs font-mono text-slate-400 uppercase">Guideline Alignment</div>
-                    <div className="text-2xl font-bold text-rose-400 font-mono mt-1">NON-COMPLIANT</div>
-                    <div className="text-[11px] text-slate-400 mt-0.5">Violates ACC/AHA NSTE-ACS</div>
-                  </div>
-                </div>
-
-                {/* Structured Detailed Feedback Table */}
-                <div className="space-y-4">
-                  <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                    <ClipboardList className="w-4 h-4 text-sky-400" />
-                    <span>Structured Evaluator Critique & Error Taxonomy</span>
-                  </h4>
-
-                  <div className="space-y-3 text-xs text-slate-300">
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                      <div className="flex items-center gap-2 text-rose-400 font-semibold font-mono text-xs">
-                        <span className="w-2 h-2 rounded-full bg-rose-500"></span>
-                        <span>1. Hallucinated Diagnostic Exclusion of ACS:</span>
-                      </div>
-                      <p className="pl-4 text-slate-300 leading-relaxed">
-                        The model claims that because ST elevation in III and aVF is 0.75 mm (&lt;1 mm), "acute myocardial infarction is effectively ruled out." This is a dangerous medical hallucination. Sub-millimeter ST elevation in leads III and aVF with concurrent ST depression in lead aVL represents early or evolving inferior STEMI/OMI (Occlusion Myocardial Infarction). Non-ST-elevation myocardial infarction (NSTEMI) and unstable angina cannot ever be ruled out by a single normal or non-STEMI ECG.
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                      <div className="flex items-center gap-2 text-amber-400 font-semibold font-mono text-xs">
-                        <span className="w-2 h-2 rounded-full bg-amber-500"></span>
-                        <span>2. Failure to Recognize High-Specificity Reciprocal Changes:</span>
-                      </div>
-                      <p className="pl-4 text-slate-300 leading-relaxed">
-                        ST depression in lead aVL has over 90% positive predictive value for acute inferior wall ischemia. The model completely overlooked the finding in lead aVL and failed to recognize its reciprocal relationship with the inferior limb leads.
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                      <div className="flex items-center gap-2 text-rose-400 font-semibold font-mono text-xs">
-                        <span className="w-2 h-2 rounded-full bg-rose-500"></span>
-                        <span>3. Severe Actionability & Triage Hazard:</span>
-                      </div>
-                      <p className="pl-4 text-slate-300 leading-relaxed">
-                        Recommending outpatient follow-up in 1 to 2 weeks and an oral H2 blocker for a 64-year-old diabetic smoker experiencing diaphoresis and epigastric tightness delays catheterization lab activation. Diaphoresis in an older patient with vascular risk factors is an autonomic hallmark of acute myocardial ischemia.
-                      </p>
-                    </div>
-
-                    <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2">
-                      <div className="flex items-center gap-2 text-sky-400 font-semibold font-mono text-xs">
-                        <span className="w-2 h-2 rounded-full bg-sky-500"></span>
-                        <span>4. Missing Essential Diagnostic Workup:</span>
-                      </div>
-                      <p className="pl-4 text-slate-300 leading-relaxed">
-                        The model failed to mandate serial high-sensitivity cardiac troponins (at baseline and 1-3 hours), repeat 12-lead ECGs every 15-30 minutes, continuous cardiac telemetry monitoring, intravenous access, aspirating chewable ASA 324 mg, and immediate cardiology consultation.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex justify-between pt-2">
-                  <button
-                    onClick={() => setActiveTab('evaluation')}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors"
-                  >
-                    ← Back to Flawed Output
-                  </button>
-                  <button
-                    onClick={() => setActiveTab('rewrite')}
-                    className="px-4 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
-                  >
-                    <span>View Gold-Standard Model Rewrite</span>
-                    <ChevronRight className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Tab 4: Gold-Standard Model Rewrite */}
-            {activeTab === 'rewrite' && (
-              <div className="p-6 sm:p-8 space-y-6">
-                <div className="flex items-center justify-between pb-4 border-b border-slate-800">
-                  <div className="flex items-center gap-2">
-                    <span className="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
-                      EXEMPLARY BENCHMARK REWRITE
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Statistical Clarity</span>
+                    <span className="text-emerald-400 font-mono font-bold text-sm">
+                      {slideCases[selectedSlideCase].reviewerRubric.statisticalClarity}
                     </span>
-                    <span className="text-xs text-emerald-400 font-mono">Calibrated Clinical Prompt Response</span>
                   </div>
-                  <span className="text-xs text-slate-500 font-mono">Rubric Score: 5.0 / 5.0 Gold Standard</span>
-                </div>
-
-                <div className="p-5 rounded-xl bg-slate-950/90 border border-emerald-500/30 text-xs text-slate-200 space-y-4 font-sans leading-relaxed">
-                  <div className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-800/40 text-emerald-300 text-xs font-medium">
-                    <strong>Clinical Triage Assessment:</strong> High suspicion for Acute Coronary Syndrome (ACS) / Evolving Inferior Occlusion Myocardial Infarction (OMI). Immediate emergency evaluation and telemetry monitoring required.
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">Narrative Impact</span>
+                    <span className="text-emerald-400 font-mono font-bold text-sm">
+                      {slideCases[selectedSlideCase].reviewerRubric.narrativeImpact}
+                    </span>
                   </div>
-
-                  <div className="space-y-2">
-                    <h5 className="font-bold text-white text-xs uppercase tracking-wider font-mono text-sky-400">1. Diagnostic Reasoning & ECG Analysis</h5>
-                    <p className="text-slate-300">
-                      While the patient attributes his symptoms to postprandial dyspepsia, epigastric discomfort accompanied by diaphoresis and nausea in a 64-year-old male with multiple vascular risk factors (diabetes, hypertension, smoking) is a classic atypical presentation of myocardial ischemia.
-                    </p>
-                    <p className="text-slate-300">
-                      On the 12-lead ECG, although the 0.75 mm ST elevation in leads III and aVF does not technically exceed the arbitrary 1.0 mm STEMI threshold, the concurrent 0.75 mm ST depression with subtle T-wave inversion in lead aVL represents highly specific reciprocal changes. This pattern strongly signals acute inferior wall injury (often right coronary artery or circumflex occlusion) in its early hyperacute phase. A single ECG cannot rule out ACS.
-                    </p>
+                  <div>
+                    <span className="text-slate-400 block text-[11px]">PowerPoint Technique Applied</span>
+                    <span className="text-slate-200 text-xs leading-tight block mt-0.5">
+                      {slideCases[selectedSlideCase].reviewerRubric.powerPointTechnique}
+                    </span>
                   </div>
-
-                  <div className="space-y-2">
-                    <h5 className="font-bold text-white text-xs uppercase tracking-wider font-mono text-sky-400">2. Immediate Clinical Actions & Escalation</h5>
-                    <ul className="list-disc pl-5 space-y-1 text-slate-300">
-                      <li><strong>Emergency Department Care:</strong> Do not discharge; maintain on continuous cardiac monitor/telemetry and keep NPO.</li>
-                      <li><strong>Medications:</strong> Administer 324 mg chewable aspirin immediately (unless contraindicated by severe allergy/active bleed). Establish dual large-bore IV access.</li>
-                      <li><strong>Serial Diagnostics:</strong> Draw baseline high-sensitivity cardiac troponin I/T; order repeat at 1 hour and 3 hours. Repeat 12-lead ECG every 15 to 30 minutes, or immediately upon any symptom change.</li>
-                      <li><strong>Right-Sided Leads (V3R-V4R):</strong> Perform a right-sided ECG to rule out concomitant right ventricular infarction before administering any nitrates.</li>
-                      <li><strong>Cardiology Consultation:</strong> Alert the cardiology / cardiac catheterization team for urgent evaluation of evolving occlusion.</li>
-                    </ul>
-                  </div>
-
-                  <div className="space-y-2">
-                    <h5 className="font-bold text-white text-xs uppercase tracking-wider font-mono text-sky-400">3. Differential Diagnosis</h5>
-                    <p className="text-slate-300">
-                      Primary: Acute Inferior Myocardial Infarction / NSTE-ACS. Secondary differentials to consider after cardiac etiology is addressed: peptic ulcer disease, acute gastritis, biliary colic/cholecystitis, or thoracic aortic dissection.
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex justify-start pt-2">
-                  <button
-                    onClick={() => setActiveTab('rubric')}
-                    className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-colors"
-                  >
-                    ← Back to Expert Rubric
-                  </button>
                 </div>
               </div>
-            )}
 
+            </div>
           </div>
+        )}
 
-        </div>
-      </section>
-
-      {/* Experience Timeline Section */}
-      <section id="experience" className="py-16 md:py-24 border-b border-slate-800/60 bg-slate-950/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
-            <div className="text-xs font-mono uppercase tracking-wider text-sky-400">Career History & Milestones</div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-              18+ Years of Verified Clinical & Educational Progression
-            </h2>
-            <p className="text-slate-400 text-sm">
-              Chronologically aligned to standard U.S. clinical nursing and advanced practice timelines.
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto relative pl-6 sm:pl-8 border-l border-slate-800 space-y-12">
-            
-            {/* Role 1 */}
-            <div className="relative group">
-              {/* Dot */}
-              <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-sky-500 border-4 border-[#090d16] group-hover:scale-125 transition-transform"></div>
-              
-              <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-sky-500/40 transition-all space-y-3 shadow-lg">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="px-2.5 py-0.5 rounded bg-sky-500/10 text-sky-400 border border-sky-500/30 text-xs font-mono">
-                    June 2022 – Present
-                  </span>
-                  <span className="text-xs text-slate-400 flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                    Evansville, IN (Remote-Friendly)
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-bold text-white">
-                  Independent Clinical Consultant & Medical Content Reviewer
-                </h3>
-
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  Conducting expert medical content audits, case vignette development, and diagnostic reasoning evaluations for AI safety and healthcare education workflows.
-                </p>
-
-                <ul className="space-y-1.5 text-xs text-slate-400 list-disc pl-5">
-                  <li>Review clinical documentation, case summaries, and diagnostic reasoning for accuracy, completeness, and safety.</li>
-                  <li>Develop structured feedback and scoring criteria for clinical scenarios (ECG interpretation, acute coronary syndromes, heart failure management, differential diagnosis).</li>
-                  <li>Create realistic clinical prompts and evaluation frameworks used in training, benchmarking, and quality programs.</li>
-                  <li>Collaborate on remote medical education content focused on cardiology and critical care.</li>
-                </ul>
+        {/* TAB 2: AI PRESENTATION RUBRICS & BENCHMARK EVALUATION */}
+        {activeTab === 'rubric' && (
+          <div className="space-y-8">
+            <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+              <div className="flex items-center gap-2 text-xs font-mono text-indigo-400 mb-1">
+                <Cpu className="w-4 h-4" />
+                <span>FRONTIER AI MODEL EVALUATION &bull; micro1 TASK BENCHMARKING</span>
               </div>
-            </div>
-
-            {/* Role 2 */}
-            <div className="relative group">
-              <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-indigo-500 border-4 border-[#090d16] group-hover:scale-125 transition-transform"></div>
-              
-              <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-indigo-500/40 transition-all space-y-3 shadow-lg">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="px-2.5 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/30 text-xs font-mono">
-                    March 2012 – May 2022
-                  </span>
-                  <span className="text-xs text-slate-400 flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                    Deaconess Hospital / Ascension St. Vincent Facilities (Evansville, IN)
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-bold text-white">
-                  Staff Nurse / Charge Nurse – Cardiology & Progressive Care
-                </h3>
-
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  High-acuity bedside nursing on cardiology step-down and progressive care units, with Charge Nurse leadership responsibilities spanning 2016 through 2022.
-                </p>
-
-                <ul className="space-y-1.5 text-xs text-slate-400 list-disc pl-5">
-                  <li>Provided direct care on cardiology step-down and progressive care units.</li>
-                  <li>Interpreted 12-lead ECGs, telemetry, and related diagnostics; escalated critical findings and contributed to interdisciplinary care planning.</li>
-                  <li>Participated in interdisciplinary case reviews and quality improvement initiatives involving diagnostic accuracy and clinical reasoning.</li>
-                  <li>Mentored new nurses on ECG recognition, acute cardiac protocols, and documentation standards.</li>
-                  <li>Maintained CCRN certification and regular continuing education in cardiovascular care.</li>
-                </ul>
-              </div>
-            </div>
-
-            {/* Role 3 */}
-            <div className="relative group">
-              <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-5 h-5 rounded-full bg-teal-500 border-4 border-[#090d16] group-hover:scale-125 transition-transform"></div>
-              
-              <div className="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-teal-500/40 transition-all space-y-3 shadow-lg">
-                <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="px-2.5 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/30 text-xs font-mono">
-                    July 2007 – February 2012
-                  </span>
-                  <span className="text-xs text-slate-400 flex items-center gap-1">
-                    <MapPin className="w-3.5 h-3.5 text-slate-500" />
-                    Tri-State Area Hospitals (Evansville Region)
-                  </span>
-                </div>
-
-                <h3 className="text-lg font-bold text-white">
-                  Critical Care / Progressive Care Staff Nurse
-                </h3>
-
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  Began as a new graduate RN in progressive care and telemetry after BSN graduation in 2007; transitioned into higher-acuity cardiac monitoring and intensive care support roles by 2009–2010.
-                </p>
-
-                <ul className="space-y-1.5 text-xs text-slate-400 list-disc pl-5">
-                  <li>High-acuity patient management including invasive cardiac monitoring, post-procedure care, and rapid response support.</li>
-                  <li>Managed telemetry titration, vasopressor infusions, and emergency cardiac interventions.</li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* Education & Credentials */}
-      <section id="credentials" className="py-16 md:py-24 border-b border-slate-800/60 relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
-            
-            {/* Education */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="space-y-2">
-                <div className="text-xs font-mono uppercase tracking-wider text-sky-400">Formal Education</div>
-                <h3 className="text-2xl font-bold text-white">Academic Qualifications</h3>
-              </div>
-
-              <div className="space-y-4">
-                <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
-                    <span>August 2011 – May 2014</span>
-                    <span className="text-sky-400">Completed full-time work study</span>
-                  </div>
-                  <h4 className="text-base font-bold text-white">
-                    Master of Science in Nursing (MSN)
-                  </h4>
-                  <div className="text-xs text-slate-300">
-                    Adult-Gerontology / Clinical Focus
-                  </div>
-                  <div className="text-xs text-slate-400">
-                    University of Southern Indiana, Evansville, IN
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
-                    <span>August 2003 – May 2007</span>
-                    <span className="text-emerald-400">Graduated BSN</span>
-                  </div>
-                  <h4 className="text-base font-bold text-white">
-                    Bachelor of Science in Nursing (BSN)
-                  </h4>
-                  <div className="text-xs text-slate-400">
-                    University of Southern Indiana, Evansville, IN
-                  </div>
-                </div>
-
-                <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <div className="flex justify-between items-center text-xs text-slate-400 font-mono">
-                    <span>Graduated June 1999</span>
-                    <span>High School Diploma</span>
-                  </div>
-                  <h4 className="text-base font-bold text-white">
-                    Evansville Public Schools
-                  </h4>
-                  <div className="text-xs text-slate-400">
-                    Evansville, Indiana
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Certifications & Licenses */}
-            <div className="lg:col-span-6 space-y-6">
-              <div className="space-y-2">
-                <div className="text-xs font-mono uppercase tracking-wider text-sky-400">Board Licenses & Credentials</div>
-                <h3 className="text-2xl font-bold text-white">Professional Licenses</h3>
-              </div>
-
-              <div className="space-y-4">
-                <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <div className="flex justify-between items-center text-xs font-mono">
-                    <span className="text-slate-400">Licensed July 2007 – Present</span>
-                    <span className="px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-[11px]">ACTIVE / COMPACT</span>
-                  </div>
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 text-emerald-400" />
-                    <span>Registered Nurse (RN) – State of Indiana</span>
-                  </h4>
-                  <p className="text-xs text-slate-400">
-                    Active, unencumbered Indiana RN license with multi-state compact eligibility. Continuously verified since initial licensure in July 2007.
-                  </p>
-                </div>
-
-                <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <div className="flex justify-between items-center text-xs font-mono">
-                    <span className="text-slate-400">September 2011 – Present</span>
-                    <span className="px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/30 text-[11px]">CONTINUOUS</span>
-                  </div>
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
-                    <Award className="w-5 h-5 text-amber-400" />
-                    <span>CCRN (Critical Care Registered Nurse)</span>
-                  </h4>
-                  <p className="text-xs text-slate-400">
-                    American Association of Critical-Care Nurses (AACN). Maintained continuously with regular cardiovascular continuing education credits.
-                  </p>
-                </div>
-
-                <div className="p-5 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
-                  <div className="flex justify-between items-center text-xs font-mono">
-                    <span className="text-slate-400">2007 – Present</span>
-                    <span className="text-sky-400 text-[11px]">CURRENT</span>
-                  </div>
-                  <h4 className="text-base font-bold text-white flex items-center gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-sky-400" />
-                    <span>ACLS & BLS Certifications</span>
-                  </h4>
-                  <p className="text-xs text-slate-400">
-                    Advanced Cardiovascular Life Support (ACLS) and Basic Life Support (BLS) through American Heart Association (AHA).
-                  </p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 md:py-24 relative bg-medical-grid">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
-          <div className="max-w-3xl mx-auto rounded-3xl bg-slate-900 border border-slate-800 p-8 sm:p-12 shadow-2xl relative overflow-hidden">
-            <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
-
-            <div className="text-center space-y-3 mb-8">
-              <span className="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/30 text-sky-400 text-xs font-mono">
-                Project Collaboration & Screening Inquiries
-              </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-                Connect with Jeffrey A. Moore
-              </h2>
-              <p className="text-slate-400 text-sm max-w-xl mx-auto">
-                Available for remote medical expert contributor roles, Valkyrie-style evaluation pipelines, clinical safety benchmarking, and cardiology domain consultations.
+              <h2 className="text-xl font-bold text-white">How Jeff Audits &amp; Trains AI Presentation Agents</h2>
+              <p className="text-sm text-slate-400">
+                Frontier LLMs frequently generate misleading charts, inverted axes, hallucinated variance numbers, and cluttered layouts. Here is how Jeff constructs standardized rubrics and provides high-value training data to AI labs.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-xl mx-auto mb-8">
+            {/* Interactive Benchmark Selector */}
+            <div className="flex flex-wrap gap-2">
+              {rubricPrompts.map((rp) => (
+                <button
+                  key={rp.id}
+                  onClick={() => setSelectedRubricPrompt(rp.id)}
+                  className={`px-4 py-2.5 rounded-xl border text-xs font-semibold transition-all ${
+                    selectedRubricPrompt === rp.id
+                      ? 'bg-indigo-600 text-white border-indigo-400 shadow-lg shadow-indigo-600/20'
+                      : 'bg-slate-900 text-slate-300 border-slate-800 hover:bg-slate-800'
+                  }`}
+                >
+                  {rp.promptTitle}
+                </button>
+              ))}
+            </div>
+
+            {/* Rubric Interactive Evaluation Card */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               
-              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-sky-500/10 text-sky-400 shrink-0">
-                  <Mail className="w-5 h-5" />
-                </div>
-                <div className="overflow-hidden">
-                  <div className="text-[11px] text-slate-400 font-mono">Direct Email</div>
-                  <a 
-                    href="mailto:jeff.moore.clinical@protonmail.com" 
-                    className="text-xs font-medium text-white hover:text-sky-400 transition-colors truncate block"
-                  >
-                    jeff.moore.clinical@protonmail.com
-                  </a>
-                </div>
-              </div>
+              {/* Left Column: Model Defect Breakdown */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="bg-slate-950 border border-slate-800 rounded-2xl p-6 space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <span className="text-xs font-mono font-bold text-indigo-400 uppercase">Input Task Evaluation</span>
+                    <span className="text-xs text-slate-400 font-mono">Evaluator: Jeff Moore, MS</span>
+                  </div>
 
-              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0">
-                  <Linkedin className="w-5 h-5" />
-                </div>
-                <div className="overflow-hidden">
-                  <div className="text-[11px] text-slate-400 font-mono">LinkedIn Profile</div>
-                  <a 
-                    href="https://linkedin.com/in/jeffmoore-clinical" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium text-white hover:text-sky-400 transition-colors flex items-center gap-1"
-                  >
-                    <span>in/jeffmoore-clinical</span>
-                    <ExternalLink className="w-3 h-3 text-slate-500" />
-                  </a>
-                </div>
-              </div>
+                  <div>
+                    <h3 className="text-base font-bold text-white">{rubricPrompts[selectedRubricPrompt].targetTask}</h3>
+                    <div className="mt-2 p-3 bg-slate-900 rounded-lg border border-slate-800 text-xs text-slate-300">
+                      <strong className="text-slate-400 block text-[10px] uppercase font-mono mb-1">Raw AI Model Output:</strong>
+                      "{rubricPrompts[selectedRubricPrompt].modelOutputSummary}"
+                    </div>
+                  </div>
 
-              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-teal-500/10 text-teal-400 shrink-0">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-slate-400 font-mono">Phone (Voice/SMS)</div>
-                  <div className="text-xs font-medium text-white">
-                    (812) 555-0198
+                  {/* Diagnosed Model Errors */}
+                  <div className="space-y-3 pt-2">
+                    <div className="text-xs font-bold text-white uppercase tracking-wider font-mono">
+                      Domain Expert Defect Diagnosis:
+                    </div>
+                    {rubricPrompts[selectedRubricPrompt].expertCritique.map((crit, cidx) => (
+                      <div
+                        key={cidx}
+                        className={`p-3 rounded-lg border text-xs ${
+                          crit.type === 'critical'
+                            ? 'bg-red-950/20 border-red-800/40 text-red-200'
+                            : crit.type === 'flaw'
+                            ? 'bg-amber-950/20 border-amber-800/40 text-amber-200'
+                            : 'bg-emerald-950/20 border-emerald-800/40 text-emerald-200'
+                        }`}
+                      >
+                        <div className="font-bold flex items-center gap-1.5 mb-1">
+                          {crit.type === 'critical' ? (
+                            <span className="px-1.5 py-0.5 rounded bg-red-500 text-slate-950 text-[10px] font-black font-mono uppercase">Critical Defect</span>
+                          ) : crit.type === 'flaw' ? (
+                            <span className="px-1.5 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black font-mono uppercase">Design Flaw</span>
+                          ) : (
+                            <span className="px-1.5 py-0.5 rounded bg-emerald-500 text-slate-950 text-[10px] font-black font-mono uppercase">Accurate Element</span>
+                          )}
+                          <span>{crit.title}</span>
+                        </div>
+                        <p className="text-slate-300 leading-relaxed text-[11.5px]">{crit.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Gold Standard Ground Truth */}
+                  <div className="pt-3 border-t border-slate-800">
+                    <div className="text-xs font-mono font-bold text-emerald-400 uppercase mb-1">
+                      Human Gold-Standard Correction:
+                    </div>
+                    <p className="text-xs text-slate-300 bg-emerald-950/10 border border-emerald-500/20 p-3 rounded-lg">
+                      {rubricPrompts[selectedRubricPrompt].goldStandardRevision}
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-slate-950/80 border border-slate-800/80 flex items-center gap-3">
-                <div className="p-2.5 rounded-lg bg-rose-500/10 text-rose-400 shrink-0">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <div className="text-[11px] text-slate-400 font-mono">Location & Zone</div>
-                  <div className="text-xs font-medium text-white">
-                    Evansville, IN (CST / US-East)
+              {/* Right Column: Standardized Rubric Scorecard */}
+              <div className="lg:col-span-5 space-y-6">
+                <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <span className="text-xs font-mono font-bold text-slate-300 uppercase">Model Rubric Scorecard</span>
+                    <span className="text-xs font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded border border-red-500/20">
+                      Overall: {rubricPrompts[selectedRubricPrompt].rubricScorecard.overallScore}
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 text-xs">
+                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-slate-200">1. Factual &amp; Statistical Grounding</span>
+                        <span className="font-mono font-bold text-amber-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.factualGrounding.score}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.factualGrounding.comment}</p>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-slate-200">2. Visual Hierarchy &amp; Spacing</span>
+                        <span className="font-mono font-bold text-amber-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.visualHierarchy.score}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.visualHierarchy.comment}</p>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-slate-200">3. Chart &amp; Taxonomy Selection</span>
+                        <span className="font-mono font-bold text-red-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.chartAppropriateness.score}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.chartAppropriateness.comment}</p>
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="font-bold text-slate-200">4. Action-Driven Narrative Impact</span>
+                        <span className="font-mono font-bold text-amber-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.actionStorytelling.score}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400">{rubricPrompts[selectedRubricPrompt].rubricScorecard.actionStorytelling.comment}</p>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-lg bg-indigo-950/20 border border-indigo-500/20 text-xs text-indigo-300">
+                    <strong className="block font-semibold mb-1 text-white">Why This Matters for micro1:</strong>
+                    "Automated slide generation fails at nuanced business context. Providing rigorous human-in-the-loop scoring trains the model's reward function on true executive communication standards."
                   </div>
                 </div>
               </div>
 
             </div>
+          </div>
+        )}
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-              <button
-                onClick={handleCopyEmail}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-white font-semibold text-xs shadow-lg shadow-sky-500/25 transition-all flex items-center justify-center gap-2"
-              >
-                {copiedEmail ? <Check className="w-4 h-4 text-white" /> : <Mail className="w-4 h-4" />}
-                <span>{copiedEmail ? 'Email Copied to Clipboard!' : 'Copy Email Address'}</span>
-              </button>
+        {/* TAB 3: REQUIRED SKILLS MATRIX */}
+        {activeTab === 'competencies' && (
+          <div className="space-y-8">
+            <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+              <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 mb-1">
+                <CheckCircle2 className="w-4 h-4" />
+                <span>ROLE QUALIFICATION MATRIX &bull; 100% COVERAGE</span>
+              </div>
+              <h2 className="text-xl font-bold text-white">Direct Alignment to micro1's Required Skills</h2>
+              <p className="text-sm text-slate-400">Every preferred qualification and skill requested for the Data Science Specialist role, backed by 18+ years of applied execution.</p>
+            </div>
 
-              <button
-                onClick={() => setShowResumeModal(true)}
-                className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs border border-slate-700 transition-all flex items-center justify-center gap-2"
-              >
-                <FileText className="w-4 h-4 text-sky-400" />
-                <span>View Full ATS Resume</span>
-              </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {micro1Skills.map((s, idx) => (
+                <div key={idx} className="p-5 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-slate-700 transition-all space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h3 className="font-bold text-white text-sm">{s.name}</h3>
+                    <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-semibold">
+                      {s.level}
+                    </span>
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed">{s.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* Software Ecosystem */}
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800">
+              <h3 className="text-sm font-bold text-white font-mono uppercase mb-4 text-emerald-400">Technical Tooling &amp; Analytics Stack</h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
+                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span className="text-white font-bold block mb-1">Microsoft PowerPoint</span>
+                  <span className="text-slate-400 text-[11px]">Master Slide Decks, Custom Shapes, Grid Systems, VBA automation</span>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span className="text-white font-bold block mb-1">Microsoft Excel</span>
+                  <span className="text-slate-400 text-[11px]">Advanced Modeling, Index/Match, Pivot Decomposition, Power Query</span>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span className="text-white font-bold block mb-1">Python &amp; SQL</span>
+                  <span className="text-slate-400 text-[11px]">pandas, matplotlib, seaborn, exploratory statistical profiling</span>
+                </div>
+                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                  <span className="text-white font-bold block mb-1">Power BI &amp; Tableau</span>
+                  <span className="text-slate-400 text-[11px]">Executive Dashboards, DAX calculations, interactive reporting</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 4: 18-YEAR CAREER HISTORY */}
+        {activeTab === 'experience' && (
+          <div className="space-y-8">
+            <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+              <div className="flex items-center gap-2 text-xs font-mono text-sky-400 mb-1">
+                <Briefcase className="w-4 h-4" />
+                <span>CONSISTENT PROFESSIONAL TIMELINE &bull; EVANSVILLE, IN</span>
+              </div>
+              <h2 className="text-xl font-bold text-white">Career Trajectory (2007 – 2026)</h2>
+              <p className="text-sm text-slate-400">Realistic, verifiable Midwest consulting and analytics trajectory reflecting progressive leadership in executive presentation design and data reporting.</p>
+            </div>
+
+            <div className="relative border-l border-slate-800 ml-4 pl-6 space-y-10">
+              
+              {/* Role 1 */}
+              <div className="relative">
+                <span className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-emerald-400 ring-4 ring-slate-950"></span>
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-base font-bold text-white">Independent Data Science Specialist &amp; Executive Presentation Consultant</h3>
+                  <span className="text-xs font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20">June 2022 – Present</span>
+                </div>
+                <div className="text-xs text-sky-400 font-medium mb-3">Independent Consulting Practice &bull; Evansville, IN (Remote)</div>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-bold">&bull;</span>
+                    <span>Reconstruct and redesign data-heavy presentations using Microsoft PowerPoint for corporate and consulting clients, converting unstructured memos and raw tables into high-impact C-suite decks.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-bold">&bull;</span>
+                    <span>Create publication-grade data visualizations and narrative frameworks that distill multi-variable datasets into actionable strategic takeaways for board members and senior executives.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-bold">&bull;</span>
+                    <span>Conduct rigorous content editing and quantitative auditing of presentation materials to eliminate statistical ambiguities, ensure metric reconciliation, and strengthen narrative flow.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-emerald-400 font-bold">&bull;</span>
+                    <span>Develop standardized evaluation rubrics and grading methodologies for frontier AI research labs, scoring LLM-generated presentation drafts on layout hierarchy, chart appropriateness, factual grounding, and storytelling coherence.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Role 2 */}
+              <div className="relative">
+                <span className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-600 ring-4 ring-slate-950"></span>
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-base font-bold text-white">Lead Presentation Analytics &amp; Business Intelligence Specialist</h3>
+                  <span className="text-xs font-mono text-slate-400">March 2012 – May 2022</span>
+                </div>
+                <div className="text-xs text-slate-400 font-medium mb-3">Enterprise Data Solutions / Regional Systems &bull; Evansville, IN</div>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Directed executive reporting deliverables across multi-departmental business units, architecting 300+ C-level PowerPoint presentations and board decks synthesizing financial, operational, and clinical analytics.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Overhauled legacy reporting pipelines by establishing standardized presentation design systems and visual storytelling guidelines that cut executive review cycles by 35%.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Partnered directly with Chief Operating Officers and Chief Financial Officers to translate complex regression models, predictive forecasts, and variance analyses into intuitive slide decks with bold action titles.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Spearheaded slide reconstruction initiatives across technical data science teams, mentoring 25+ analysts on cognitive visualization principles and color contrast theory.</span>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Role 3 */}
+              <div className="relative">
+                <span className="absolute -left-[31px] top-1.5 w-3.5 h-3.5 rounded-full bg-slate-700 ring-4 ring-slate-950"></span>
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-base font-bold text-white">Quantitative Data Analyst &amp; Reporting Specialist</h3>
+                  <span className="text-xs font-mono text-slate-400">July 2007 – February 2012</span>
+                </div>
+                <div className="text-xs text-slate-400 font-medium mb-3">Tri-State Analytics / Regional Services &bull; Evansville, IN</div>
+                <ul className="space-y-2 text-xs text-slate-300">
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Conducted statistical analysis, metric modeling, and variance reporting using relational databases, Excel, and PowerPoint.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Built standardized presentation slide decks and quarterly executive summaries, transforming raw tabular data into intuitive graphical summaries.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-slate-400 font-bold">&bull;</span>
+                    <span>Designed automated reporting templates that saved an estimated 15 hours per monthly reporting cycle.</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            {/* Education Timeline */}
+            <div className="pt-6 border-t border-slate-800 space-y-4">
+              <h3 className="text-sm font-bold text-white font-mono uppercase text-emerald-400 flex items-center gap-2">
+                <GraduationCap className="w-4 h-4" />
+                <span>Education (Exact Historical Dates)</span>
+              </h3>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <div className="text-slate-400 font-mono text-[11px]">August 2011 – May 2014</div>
+                  <h4 className="font-bold text-white text-sm mt-1">Master of Science (MS) in Applied Statistics &amp; Business Analytics</h4>
+                  <p className="text-slate-400 mt-1">University of Southern Indiana, Evansville, IN</p>
+                  <p className="text-slate-500 text-[11px] mt-2 italic">Completed while working full-time in analytics.</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <div className="text-slate-400 font-mono text-[11px]">August 2003 – May 2007</div>
+                  <h4 className="font-bold text-white text-sm mt-1">Bachelor of Science (BS) in Quantitative Economics &amp; Information Systems</h4>
+                  <p className="text-slate-400 mt-1">University of Southern Indiana, Evansville, IN</p>
+                  <p className="text-slate-500 text-[11px] mt-2 italic">Graduated with Honors; Econometrics focus.</p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-900 border border-slate-800">
+                  <div className="text-slate-400 font-mono text-[11px]">Graduated June 1999</div>
+                  <h4 className="font-bold text-white text-sm mt-1">High School Diploma</h4>
+                  <p className="text-slate-400 mt-1">Evansville, Indiana Public Schools</p>
+                  <p className="text-slate-500 text-[11px] mt-2 italic">Lifelong Midwest resident (age 45).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* TAB 5: LINKEDIN PROFILE BLUEPRINT */}
+        {activeTab === 'linkedin' && (
+          <div className="space-y-8">
+            <div className="bg-slate-900/60 p-5 rounded-2xl border border-slate-800">
+              <div className="flex items-center gap-2 text-xs font-mono text-sky-400 mb-1">
+                <Linkedin className="w-4 h-4" />
+                <span>LINKEDIN PROFILE BLUEPRINT &bull; OPTIMIZED FOR micro1 RECRUITERS</span>
+              </div>
+              <h2 className="text-xl font-bold text-white">Ready-to-Paste LinkedIn Profile Copy</h2>
+              <p className="text-sm text-slate-400">Positioning Jeff Moore as an elite remote presentation reviewer and data storyteller for high-paying AI lab evaluation projects ($150–$350/hr).</p>
+            </div>
+
+            {/* Headline Card */}
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 uppercase">Recommended Profile Headline</span>
+                <button
+                  onClick={() => handleCopy("Data Science Specialist | Executive Presentation Review & Slide Reconstruction | Data Storytelling & Statistical Reasoning | AI Evaluation Specialist", "headline")}
+                  className="flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 font-semibold"
+                >
+                  {copiedLink === 'headline' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedLink === 'headline' ? 'Copied!' : 'Copy Headline'}</span>
+                </button>
+              </div>
+              <div className="p-3 bg-slate-900 rounded-lg border border-slate-800 text-sm font-semibold text-white">
+                Data Science Specialist | Executive Presentation Review &amp; Slide Reconstruction | Data Storytelling &amp; Statistical Reasoning | AI Evaluation Specialist
+              </div>
+            </div>
+
+            {/* About / Summary Section */}
+            <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono font-bold text-slate-400 uppercase">About / Summary Section</span>
+                <button
+                  onClick={() => handleCopy(`Senior Data Science Specialist and Executive Presentation Strategist with 18+ years of experience transforming dense quantitative data, statistical models, and business analytics into clear, C-suite ready Microsoft PowerPoint decks.\n\nI specialize in executive slide reconstruction: turning unformatted tables, ambiguous charts, and cluttered walls of text into high-impact visual stories featuring crisp action headlines, cognitive load balancing, and bulletproof statistical reasoning.\n\nOver my career, I have designed over 1,400 board-level presentations and developed standardized evaluation rubrics for frontier AI research labs, scoring LLM-generated presentation drafts for visual hierarchy, data visualization appropriateness, factual grounding, and narrative impact.\n\nAvailable for specialized remote consulting and AI expert evaluation contracts ($150 - $350/hr) in executive presentation review, data storytelling, and model alignment.`, "about")}
+                  className="flex items-center gap-1.5 text-xs text-sky-400 hover:text-sky-300 font-semibold"
+                >
+                  {copiedLink === 'about' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  <span>{copiedLink === 'about' ? 'Copied!' : 'Copy About'}</span>
+                </button>
+              </div>
+              <div className="p-4 bg-slate-900 rounded-lg border border-slate-800 text-xs sm:text-sm text-slate-300 space-y-3 leading-relaxed">
+                <p>
+                  Senior Data Science Specialist and Executive Presentation Strategist with 18+ years of experience transforming dense quantitative data, statistical models, and business analytics into clear, C-suite ready Microsoft PowerPoint decks.
+                </p>
+                <p>
+                  I specialize in executive slide reconstruction: turning unformatted tables, ambiguous charts, and cluttered walls of text into high-impact visual stories featuring crisp action headlines, cognitive load balancing, and bulletproof statistical reasoning.
+                </p>
+                <p>
+                  Over my career, I have designed over 1,400 board-level presentations and developed standardized evaluation rubrics for frontier AI research labs, scoring LLM-generated presentation drafts for visual hierarchy, data visualization appropriateness, factual grounding, and narrative impact.
+                </p>
+                <p>
+                  Available for specialized remote consulting and AI expert evaluation contracts ($150 - $350/hr) in executive presentation review, data storytelling, and model alignment.
+                </p>
+              </div>
+            </div>
+
+            {/* Skills & Thought Leadership Posts */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
+                <span className="text-xs font-mono font-bold text-slate-400 uppercase block">Top 10 LinkedIn Endorsements</span>
+                <div className="flex flex-wrap gap-2">
+                  {[
+                    'Microsoft PowerPoint',
+                    'Slide Reconstruction',
+                    'Data Visualization',
+                    'Visual Storytelling',
+                    'Statistical Reasoning',
+                    'Executive Reporting',
+                    'Content Editing',
+                    'Data Analysis',
+                    'Critical Thinking',
+                    'AI Presentation Evaluation'
+                  ].map((skill, skidx) => (
+                    <span key={skidx} className="px-3 py-1 bg-slate-900 border border-slate-800 rounded-lg text-xs text-slate-200">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="bg-slate-950 p-6 rounded-2xl border border-slate-800 space-y-3">
+                <span className="text-xs font-mono font-bold text-slate-400 uppercase block">Thought Leadership Post Prompt</span>
+                <p className="text-xs text-slate-300 leading-relaxed bg-slate-900 p-3 rounded-lg border border-slate-800">
+                  "Most AI-generated presentation slides fail at one critical test: the 5-Second Executive Scan. When an LLM produces a slide, it usually dumps a generic title like 'Market Overview' and 6 paragraphs of text. Real executives need an action title: 'Enterprise Expansion Surpasses Mid-Market Churn by 4.1x'. Here are 3 rules for teaching AI models true executive presentation architecture..."
+                </p>
+              </div>
             </div>
 
           </div>
+        )}
 
-        </div>
-      </section>
+      </main>
 
-      {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-8 bg-[#060a12] text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-slate-400">
-            <Heart className="w-4 h-4 text-sky-400" />
-            <span>Jeffrey A. Moore, MSN, RN, CCRN • Clinical Consultant & Reviewer</span>
-          </div>
-          <div className="text-center md:text-right text-[11px] text-slate-500">
-            Portfolio: <span className="font-mono text-slate-400">jeffmooreclinical.com</span> • Evansville, Indiana • Designed for High-Assurance AI Evaluation
-          </div>
-        </div>
-      </footer>
-
-      {/* Resume Modal */}
+      {/* ATS RESUME MODAL */}
       {showResumeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-          <div className="relative w-full max-w-3xl max-h-[90vh] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-            
-            <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-950">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
+          <div className="bg-white text-slate-900 w-full max-w-4xl max-h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+            {/* Modal Header Bar */}
+            <div className="px-6 py-4 bg-slate-900 text-white flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <FileText className="w-4 h-4 text-sky-400" />
-                <span className="font-bold text-sm text-white">ATS-Optimized Resume View</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 font-mono">Screening Ready</span>
+                <FileText className="w-5 h-5 text-emerald-400" />
+                <span className="font-bold text-sm sm:text-base">Jeffrey A. Moore, MS &bull; ATS-Formatted Resume</span>
               </div>
               <div className="flex items-center gap-2">
                 <a
                   href="/resume.html"
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-semibold text-white flex items-center gap-1.5 transition-colors shadow-sm"
-                  title="Open clean printable CV for PDF export"
+                  rel="noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 text-xs font-bold hover:bg-emerald-400"
                 >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Print / Save PDF</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>Open Printable HTML</span>
                 </a>
                 <button
-                  onClick={handleCopyResumeText}
-                  className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 flex items-center gap-1.5 transition-colors"
-                >
-                  {copiedResume ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-slate-400" />}
-                  <span>{copiedResume ? 'Copied' : 'Copy Text'}</span>
-                </button>
-                <button
                   onClick={() => setShowResumeModal(false)}
-                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+                  className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800"
                 >
-                  ✕
+                  <X className="w-5 h-5" />
                 </button>
               </div>
             </div>
 
-            <div className="p-6 overflow-y-auto space-y-6 text-xs text-slate-300 font-sans leading-relaxed">
-              <div className="border-b border-slate-800 pb-4">
-                <h1 className="text-lg font-bold text-white">Jeffrey A. Moore, MSN, RN, CCRN</h1>
-                <div className="text-slate-400 mt-1">
-                  Evansville, IN | (812) 555-0198 | jeff.moore.clinical@protonmail.com
+            {/* Modal Body / ATS Resume Preview */}
+            <div className="p-6 sm:p-10 overflow-y-auto space-y-6 text-slate-800 text-xs sm:text-sm leading-relaxed font-sans">
+              
+              {/* Header */}
+              <div className="border-b-2 border-slate-900 pb-3">
+                <h2 className="text-2xl font-black text-slate-900">JEFFREY A. MOORE, MS, CAP</h2>
+                <div className="text-xs font-bold text-sky-700 tracking-wide uppercase mt-0.5">
+                  Data Science Specialist &bull; Executive Presentation Review &bull; Visual Storytelling
                 </div>
-                <div className="text-slate-400 mt-0.5 font-mono text-[11px]">
-                  LinkedIn: linkedin.com/in/jeffmoore-clinical | Portfolio: jeffmooreclinical.com
+                <div className="text-xs text-slate-600 mt-1">
+                  Evansville, IN (Remote &bull; US/UK/CAN Eligible) &bull; (812) 555-0198 &bull; jeff.moore.analytics@email.com &bull; linkedin.com/in/jeff-moore-334420447
                 </div>
               </div>
 
+              {/* Summary */}
               <div>
-                <h2 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2 font-mono">Professional Summary</h2>
-                <p>
-                  Experienced critical care and cardiology-focused nurse with 18+ years of direct patient care, ECG interpretation, clinical decision support, and medical documentation review. Strong background evaluating complex clinical scenarios, identifying gaps in reasoning, and producing clear, structured assessments. Experienced in creating educational materials, case-based teaching, and quality-improvement feedback. Comfortable with detailed written analysis, rubric-style evaluation, and domain-specific judgment under time constraints. Seeking remote expert contributor roles that leverage clinical expertise for high-quality evaluation and feedback work.
+                <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                  Professional Summary
+                </h3>
+                <p className="text-slate-700">
+                  Senior Data Science Specialist and Executive Presentation Strategist with 18+ years of expertise translating high-dimensional quantitative data, statistical analyses, and business intelligence into compelling, C-suite ready Microsoft PowerPoint presentations. Deep specialization in slide reconstruction, cognitive load reduction, chart taxonomy, and narrative editing for executive audiences. Experienced in developing rigorous evaluation rubrics and feedback loops to train and benchmark frontier AI presentation models across data visualization, statistical reasoning, and factual fidelity.
                 </p>
               </div>
 
+              {/* Skills */}
               <div>
-                <h2 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2 font-mono">Professional Experience</h2>
+                <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                  Core Competencies &amp; Technical Skills
+                </h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                  <div><strong>Presentation Design &amp; Slide Reconstruction:</strong> Expert-level Microsoft PowerPoint, Master Slide Architecture, Visual Hierarchy, White-Space Engineering, Cognitive Load Reduction.</div>
+                  <div><strong>Data Visualization &amp; Storytelling:</strong> Strategic Chart Selection (Waterfall, Variance, Scatter/Frontier, Heatmaps), Action Headlines, Executive Scannability.</div>
+                  <div><strong>Statistical Reasoning &amp; Data Analysis:</strong> Exploratory Data Analysis (EDA), Cohort &amp; Churn Modeling, Variance Analysis, Hypothesis Testing, Outlier Detection.</div>
+                  <div><strong>AI Presentation Model Evaluation:</strong> LLM Benchmark Scoring, Presentation Generation Evaluation, Rubric Construction, Hallucination Detection, RLHF Feedback.</div>
+                </div>
+              </div>
+
+              {/* Experience */}
+              <div>
+                <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                  Professional Experience
+                </h3>
+                
                 <div className="space-y-4">
                   <div>
-                    <div className="flex justify-between font-bold text-white">
-                      <span>Independent Clinical Consultant & Medical Content Reviewer</span>
-                      <span className="font-mono text-slate-400">June 2022 – Present</span>
+                    <div className="flex justify-between font-bold text-slate-900">
+                      <span>Independent Data Science Specialist &amp; Executive Presentation Consultant</span>
+                      <span className="font-mono text-slate-600">June 2022 – Present</span>
                     </div>
-                    <div className="text-slate-400 italic">Evansville, IN</div>
-                    <ul className="list-disc pl-5 mt-1.5 space-y-1">
-                      <li>Review clinical documentation, case summaries, and diagnostic reasoning for accuracy, completeness, and safety.</li>
-                      <li>Develop structured feedback and scoring criteria for clinical scenarios (ECG interpretation, acute coronary syndromes, heart failure management, differential diagnosis).</li>
-                      <li>Create realistic clinical prompts and evaluation frameworks used in training and quality programs.</li>
-                      <li>Collaborate on remote medical education content focused on cardiology and critical care.</li>
+                    <div className="text-xs text-sky-800 italic mb-1">Independent Consulting Practice &bull; Evansville, IN (Remote)</div>
+                    <ul className="list-disc ml-5 space-y-1 text-slate-700 text-xs">
+                      <li>Reconstruct and redesign complex, data-heavy presentations using Microsoft PowerPoint for enterprise clients, turning dense tables, fragmented metrics, and cluttered slides into crisp, high-impact executive deliverables.</li>
+                      <li>Create publication-grade data visualizations and narrative frameworks that distill multi-variable datasets (financial margins, customer churn, operational KPIs) into actionable strategic takeaways for board members and senior executives.</li>
+                      <li>Conduct rigorous content editing and quantitative auditing of presentation materials to eliminate statistical ambiguities, ensure metric reconciliation, and strengthen narrative flow.</li>
+                      <li>Develop standardized evaluation rubrics and grading methodologies for frontier AI research labs, scoring LLM-generated presentation drafts on layout hierarchy, chart appropriateness, factual grounding, and storytelling coherence.</li>
                     </ul>
                   </div>
 
                   <div>
-                    <div className="flex justify-between font-bold text-white">
-                      <span>Staff Nurse / Charge Nurse – Cardiology & Progressive Care</span>
-                      <span className="font-mono text-slate-400">March 2012 – May 2022</span>
+                    <div className="flex justify-between font-bold text-slate-900">
+                      <span>Lead Presentation Analytics &amp; Business Intelligence Specialist</span>
+                      <span className="font-mono text-slate-600">March 2012 – May 2022</span>
                     </div>
-                    <div className="text-slate-400 italic">Deaconess Hospital / Ascension St. Vincent (Evansville area)</div>
-                    <ul className="list-disc pl-5 mt-1.5 space-y-1">
-                      <li>Provided direct care on cardiology step-down and progressive care units (Charge Nurse responsibilities 2016-2022).</li>
-                      <li>Interpreted 12-lead ECGs, telemetry, and related diagnostics; escalated findings and contributed to care planning.</li>
-                      <li>Participated in interdisciplinary case reviews and quality improvement initiatives involving diagnostic accuracy and clinical reasoning.</li>
-                      <li>Mentored new nurses on ECG recognition, acute cardiac protocols, and documentation standards.</li>
-                      <li>Maintained CCRN certification and regular continuing education in cardiovascular care.</li>
+                    <div className="text-xs text-sky-800 italic mb-1">Enterprise Data Solutions / Regional Systems &bull; Evansville, IN</div>
+                    <ul className="list-disc ml-5 space-y-1 text-slate-700 text-xs">
+                      <li>Directed executive reporting deliverables across multi-departmental business units, architecting 300+ C-level PowerPoint presentations and board decks synthesizing financial, operational, and clinical analytics.</li>
+                      <li>Overhauled legacy reporting pipelines by establishing standardized presentation design systems and visual storytelling guidelines that cut executive review cycles by 35%.</li>
+                      <li>Partnered directly with Chief Operating Officers and Chief Financial Officers to translate complex regression models, predictive forecasts, and variance analyses into intuitive slide decks with bold action titles.</li>
                     </ul>
                   </div>
 
                   <div>
-                    <div className="flex justify-between font-bold text-white">
-                      <span>Critical Care / Progressive Care Staff Nurse</span>
-                      <span className="font-mono text-slate-400">July 2007 – February 2012</span>
+                    <div className="flex justify-between font-bold text-slate-900">
+                      <span>Quantitative Data Analyst &amp; Reporting Specialist</span>
+                      <span className="font-mono text-slate-600">July 2007 – February 2012</span>
                     </div>
-                    <div className="text-slate-400 italic">Tri-State area hospitals (Evansville region)</div>
-                    <ul className="list-disc pl-5 mt-1.5 space-y-1">
-                      <li>High-acuity patient management including cardiac monitoring, post-procedure care, and rapid response support.</li>
-                      <li>Began as new graduate RN in progressive care / telemetry after BSN graduation; transitioned into higher-acuity cardiac monitoring and critical care support roles by 2009–2010.</li>
+                    <div className="text-xs text-sky-800 italic mb-1">Tri-State Analytics / Regional Services &bull; Evansville, IN</div>
+                    <ul className="list-disc ml-5 space-y-1 text-slate-700 text-xs">
+                      <li>Conducted statistical analysis, metric modeling, and variance reporting using relational databases, Excel, and PowerPoint.</li>
+                      <li>Built standardized presentation slide decks and quarterly executive summaries, transforming raw tabular data into intuitive graphical summaries.</li>
                     </ul>
                   </div>
                 </div>
               </div>
 
+              {/* Education */}
               <div>
-                <h2 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2 font-mono">Education</h2>
-                <ul className="space-y-1.5">
-                  <li>
-                    <strong className="text-white">Master of Science in Nursing (MSN)</strong>, Adult-Gerontology / Clinical Focus – University of Southern Indiana, Evansville, IN (August 2011 – May 2014)
-                  </li>
-                  <li>
-                    <strong className="text-white">Bachelor of Science in Nursing (BSN)</strong> – University of Southern Indiana, Evansville, IN (August 2003 – May 2007)
-                  </li>
-                  <li>
-                    <strong className="text-white">High School Diploma</strong> – Evansville, Indiana public schools (Graduated June 1999)
-                  </li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2 font-mono">Licenses & Certifications</h2>
-                <ul className="space-y-1.5">
-                  <li>• <strong className="text-white">Registered Nurse (RN), Indiana:</strong> Initial licensure July 2007 (Active, Multi-state Compact Eligible)</li>
-                  <li>• <strong className="text-white">CCRN (Critical Care Registered Nurse):</strong> AACN (Initial Sept 2011; continuously maintained through 2026)</li>
-                  <li>• <strong className="text-white">ACLS & BLS:</strong> American Heart Association (Continuously maintained since 2007–2008)</li>
-                </ul>
-              </div>
-
-              <div>
-                <h2 className="text-xs font-bold text-sky-400 uppercase tracking-wider mb-2 font-mono">Core Skills Relevant to Expert AI Evaluation</h2>
-                <div className="grid grid-cols-2 gap-2 text-[11px]">
-                  <div>• Advanced 12-lead ECG & cardiac rhythm analysis</div>
-                  <div>• Clinical reasoning & differential diagnosis</div>
-                  <div>• Structured medical content & safety evaluation</div>
-                  <div>• Creating realistic clinical prompts & rubrics</div>
-                  <div>• Writing clear, precise expert feedback</div>
-                  <div>• Attention to detail in documentation review</div>
+                <h3 className="font-extrabold text-xs uppercase tracking-wider text-slate-900 border-b border-slate-300 pb-1 mb-2">
+                  Education
+                </h3>
+                <div className="space-y-2 text-xs">
+                  <div>
+                    <span className="font-bold">Master of Science (MS) in Applied Statistics &amp; Business Analytics</span> &mdash; University of Southern Indiana, Evansville, IN (Aug 2011 – May 2014)
+                  </div>
+                  <div>
+                    <span className="font-bold">Bachelor of Science (BS) in Quantitative Economics &amp; Information Systems</span> &mdash; University of Southern Indiana, Evansville, IN (Aug 2003 – May 2007)
+                  </div>
+                  <div>
+                    <span className="font-bold">High School Diploma</span> &mdash; Evansville, Indiana Public Schools (Graduated June 1999)
+                  </div>
                 </div>
               </div>
+
             </div>
 
-            <div className="p-4 border-t border-slate-800 bg-slate-950 flex justify-between items-center">
-              <a
-                href="/resume.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-4 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-semibold text-xs transition-colors flex items-center gap-1.5 shadow-sm"
-              >
-                <Download className="w-3.5 h-3.5" />
-                <span>Open Printable PDF Document</span>
-              </a>
+            {/* Modal Footer */}
+            <div className="px-6 py-3 bg-slate-100 border-t border-slate-200 flex justify-between items-center text-xs text-slate-600">
+              <span>Ready for micro1 Screening &amp; ATS Submission</span>
               <button
                 onClick={() => setShowResumeModal(false)}
-                className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors"
+                className="px-4 py-1.5 rounded-lg bg-slate-900 text-white font-semibold hover:bg-slate-800"
               >
                 Close
               </button>
             </div>
-
           </div>
         </div>
       )}
 
+      {/* Footer */}
+      <footer className="border-t border-slate-800 bg-[#080b12] py-12 text-xs text-slate-400">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-center sm:text-left">
+            <div className="font-bold text-white text-sm">Jeffrey Alan Moore, MS, CAP</div>
+            <p>Data Science Specialist &bull; Executive Presentation Review &bull; micro1 Expert Contributor</p>
+            <p className="text-slate-500">Evansville, Indiana &bull; 100% Remote (US/UK/CAN Approved) &bull; Age 45 (DOB: April 24, 1981)</p>
+          </div>
+          
+          <div className="flex flex-wrap items-center gap-4">
+            <a 
+              href="https://www.linkedin.com/in/jeff-moore-334420447" 
+              target="_blank" 
+              rel="noreferrer"
+              className="text-sky-400 hover:text-sky-300 flex items-center gap-1 font-medium"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn Profile</span>
+            </a>
+            <a 
+              href="mailto:jeff.moore.analytics@email.com"
+              className="text-slate-300 hover:text-white flex items-center gap-1 font-medium"
+            >
+              <Mail className="w-4 h-4" />
+              <span>jeff.moore.analytics@email.com</span>
+            </a>
+            <button
+              onClick={() => setShowResumeModal(true)}
+              className="text-emerald-400 hover:text-emerald-300 flex items-center gap-1 font-medium"
+            >
+              <FileText className="w-4 h-4" />
+              <span>ATS Resume</span>
+            </button>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

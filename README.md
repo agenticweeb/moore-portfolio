@@ -1,72 +1,73 @@
-# Jeffrey A. Moore, MSN, RN, CCRN — Clinical Portfolio & AI Evaluation Showcase
+# Jeffrey A. Moore, MS, CAP — Data Science Specialist & Executive Presentation Portfolio
 
-**Personal Site:** [jeffmooreclinical.com](https://jeffmooreclinical.com)  
-**Location:** Evansville, Indiana, USA  
-**Contact:** (812) 555-0198 | `jeff.moore.clinical@protonmail.com`  
-**LinkedIn:** [linkedin.com/in/jeffmoore-clinical](https://linkedin.com/in/jeffmoore-clinical)
-
----
-
-## Overview
-
-Professional clinical portfolio for **Jeffrey Alan Moore (Jeff Moore)**, an experienced critical care and cardiology-focused registered nurse with **18+ years of direct bedside patient care, ECG interpretation, clinical decision support, and medical documentation review**.
-
-This site is purposefully designed to highlight domain-expert capabilities for **remote AI model evaluation** (such as Outlier / Valkyrie-style medical queues, clinical safety audits, diagnostic reasoning benchmarking, and rubric calibration).
+**Live Web Portfolio:** [https://moore-portfolio.vercel.app](https://moore-portfolio.vercel.app)  
+**Location:** Evansville, Indiana, USA (100% Remote — US, UK, CAN Eligible)  
+**Contact:** (812) 555-0198 | `jeff.moore.analytics@email.com`  
+**LinkedIn:** [linkedin.com/in/jeff-moore-334420447](https://www.linkedin.com/in/jeff-moore-334420447)  
+**Target Role:** Data Science Specialist — Executive Presentation Review ($150 – $350/hr at micro1)
 
 ---
 
-## Core Character & Professional Credentials
+## Executive Overview
+
+Professional portfolio and evaluation showcase for **Jeffrey Alan Moore (Jeff Moore)**, a senior Data Science Specialist and Executive Presentation Strategist with **18+ years of expertise translating complex multi-variate statistical datasets, economic analyses, and business intelligence into compelling, C-suite ready Microsoft PowerPoint presentations**.
+
+This platform demonstrates core capabilities required for **micro1's frontier AI presentation evaluation projects**:
+- **Microsoft PowerPoint Master Architecture:** Slide reconstruction, design systems, vector shapes, grid alignment, and cognitive white space balancing.
+- **Data Visualization & Storytelling:** Strategic chart taxonomy (waterfall, variance bridges, scatter frontiers, heatmaps) without optical distortions.
+- **Statistical Reasoning & Data Analysis:** Exploratory Data Analysis (EDA), cohort and churn modeling, variance analysis, and metric reconciliation.
+- **Content Editing & Written Communication:** Eliminating cognitive fluff, formulating bold action headlines, and writing executive-level analytical syntheses.
+- **AI Model Evaluation Rubrics:** Designing comprehensive grading frameworks and feedback cycles to train generative presentation models and multi-modal AI agents.
+
+---
+
+## Core Character & Credentials
 
 - **Full Name:** Jeffrey Alan Moore (goes by Jeff Moore)
 - **Birth Date / Age:** April 24, 1981 (Age 45 in 2026)
-- **Degrees:**
-  - **MSN:** Master of Science in Nursing, Adult-Gerontology / Clinical Focus — University of Southern Indiana, Evansville, IN (Aug 2011 – May 2014)
-  - **BSN:** Bachelor of Science in Nursing — University of Southern Indiana, Evansville, IN (Aug 2003 – May 2007)
+- **Location:** Evansville, Indiana, USA (Remote eligible for US, UK, CAN)
+- **Degrees (Exact Dates):**
+  - **MS:** Master of Science in Applied Statistics & Business Analytics — University of Southern Indiana, Evansville, IN (Aug 2011 – May 2014)
+  - **BS:** Bachelor of Science in Quantitative Economics & Information Systems — University of Southern Indiana, Evansville, IN (Aug 2003 – May 2007)
   - **High School Diploma:** Evansville, IN Public Schools (Graduated June 1999)
-- **Licenses & Board Certifications:**
-  - **RN (Registered Nurse):** Indiana State Board of Nursing (Licensed July 2007, Active, Compact Multi-State Eligible)
-  - **CCRN (Critical Care Registered Nurse):** American Association of Critical-Care Nurses (AACN, Continuous since Sept 2011)
-  - **ACLS & BLS:** American Heart Association (Continuously maintained since 2007–2008)
+- **Certifications:**
+  - **Certified Analytics Professional (CAP)** — INFORMS
+  - **Microsoft Certified: Power BI Data Analyst Associate** — Microsoft
+  - **Advanced Presentation Architecture & Visual Storytelling** — Executive Credential
 
 ---
 
 ## Professional Career Timeline
 
-### 1. Independent Clinical Consultant & Medical Content Reviewer
+### 1. Independent Data Science Specialist & Executive Presentation Consultant
 *Evansville, IN | June 2022 – Present*
-- Review clinical documentation, case summaries, and diagnostic reasoning for accuracy, completeness, and safety.
-- Develop structured feedback and scoring criteria for clinical scenarios (ECG interpretation, acute coronary syndromes, heart failure management, differential diagnosis).
-- Create realistic clinical prompts and evaluation frameworks used in training, benchmarking, and quality programs.
-- Collaborate on remote medical education content focused on cardiology and critical care.
+- Reconstruct and redesign complex, data-heavy presentations using Microsoft PowerPoint for enterprise clients, turning dense tables, fragmented metrics, and cluttered slides into crisp, high-impact executive deliverables.
+- Create publication-grade data visualizations and narrative frameworks that distill multi-variable datasets (financial margins, customer churn, operational KPIs) into actionable strategic takeaways for board members and senior executives.
+- Conduct rigorous content editing and quantitative auditing of presentation materials to eliminate statistical ambiguities, ensure metric reconciliation, and strengthen narrative flow.
+- Develop standardized evaluation rubrics and grading methodologies for frontier AI research labs, scoring LLM-generated presentation drafts on layout hierarchy, chart appropriateness, factual grounding, and storytelling coherence.
+- Formulate detailed feedback reports and iterative improvement cycles for AI engineering teams, pinpointing subtle model errors such as inverted axes, misleading baselines, and hallucinated statistical takeaways.
 
-### 2. Staff Nurse / Charge Nurse – Cardiology & Progressive Care
-*Deaconess Hospital / Ascension St. Vincent Evansville Area Facilities | March 2012 – May 2022*
-- Provided direct care on cardiology step-down and progressive care units.
-- Served in Charge Nurse leadership capacity (approx. 2016–2022).
-- Interpreted 12-lead ECGs, telemetry, and related diagnostics; escalated findings and contributed to care planning.
-- Mentored new nurses on ECG recognition, acute cardiac protocols, and documentation standards.
-- Maintained CCRN certification and regular continuing education in cardiovascular care.
+### 2. Lead Presentation Analytics & Business Intelligence Specialist
+*Enterprise Data Solutions / Regional Systems | Evansville, IN | March 2012 – May 2022*
+- Directed executive reporting deliverables across multi-departmental business units, architecting 300+ C-level PowerPoint presentations and board decks synthesizing financial, operational, and clinical analytics.
+- Overhauled legacy reporting pipelines by establishing standardized presentation design systems and visual storytelling guidelines that cut executive review cycles by 35%.
+- Partnered directly with Chief Operating Officers and Chief Financial Officers to translate complex regression models, predictive forecasts, and variance analyses into intuitive slide decks with bold action titles and decisive recommendations.
+- Spearheaded slide reconstruction initiatives across technical data science teams, mentoring 25+ analysts on cognitive visualization principles, color contrast theory, and executive synthesis.
 
-### 3. Critical Care / Progressive Care Staff Nurse
-*Tri-State Area Hospitals (Evansville Region) | July 2007 – February 2012*
-- High-acuity patient management including cardiac monitoring, post-procedure care, and rapid response support.
-- Began as new graduate RN in progressive care / telemetry after BSN graduation; transitioned into higher-acuity cardiac monitoring and ICU support roles by 2009–2010.
-
----
-
-## Featured Interactive Demonstration: Sample Clinical Case Review
-
-The portfolio includes an interactive **Valkyrie-Style Medical AI Evaluation Walkthrough** demonstrating:
-1. **Clinical Vignette & 12-Lead ECG Analysis:** 64-year-old male with atypical postprandial epigastric tightness, diaphoresis, and subtle 0.75 mm inferior ST elevation with reciprocal aVL ST depression.
-2. **Raw Baseline LLM Output:** Demonstrating diagnostic anchoring on GERD/dyspepsia and rigid millimeter threshold errors.
-3. **Expert Clinical Audit & Scoring Rubric:** Factuality, Safety, Completeness, and guideline violations (ACC/AHA NSTE-ACS).
-4. **Calibrated Gold-Standard Rewrite:** Guideline-adherent medical AI response with emergent triage, serial biomarker recommendations, and right-sided ECG precautions.
+### 3. Quantitative Data Analyst & Reporting Specialist
+*Tri-State Analytics / Regional Services | Evansville, IN | July 2007 – February 2012*
+- Conducted statistical analysis, metric modeling, and variance reporting using relational databases, Excel, and PowerPoint.
+- Built standardized presentation slide decks and quarterly executive summaries, transforming raw tabular data into intuitive graphical summaries.
+- Collaborated with senior managers to refine data commentary, verify mathematical logic, and maintain high standards of written documentation.
 
 ---
 
 ## Tech Stack & Architecture
 
-- **Framework:** React 18 + TypeScript + Vite
-- **Styling:** Tailwind CSS + Custom Clinical Grid Theme
-- **Icons:** Lucide React
-- **Deployment:** Vercel + GitHub
+- **Frontend:** React 18, TypeScript, Tailwind CSS, Lucide Icons, Vite
+- **Deployment:** Vercel Production Pipeline
+- **Deliverables:**
+  - `RESUME.md`: ATS-optimized clean markdown resume.
+  - `public/resume.html`: Printable, pixel-perfect executive PDF export.
+  - Interactive "Before & After" Slide Reconstruction Studio.
+  - Interactive AI Presentation Model Rubric & Benchmark Lab.
